@@ -1,0 +1,47 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="content-header" class="clearfix">
+                    <div class="pull-left">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active"><span>Category</span></li>
+                        </ol>
+                        <h1>Statistics - SDK</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3><span>Retention</span></h3>
+    <div class="slider-range" ng-controller="device_range"></div>
+    <span class="slider-label"></span>
+
+    <div class="col-lg-12">
+        <div class="main-box">
+            <header class="main-box-header clearfix">
+                <h2>Error Rate by SDK Level</h2>
+            </header>
+
+            <div class="main-box-body clearfix" ng-controller="sdk_flot_donut">
+                <div id="graph-flot-donut" style="height: 400px; padding: 0px; position: relative;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="main-box">
+            <header class="main-box-header clearfix">
+                <h2>Error Count by SDK Level</h2>
+            </header>
+
+            <div class="main-box-body clearfix" ng-controller="sdk_flot_bar">
+                <div id="sdk-flot-bar"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

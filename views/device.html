@@ -1,0 +1,116 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="content-header" class="clearfix">
+                    <div class="pull-left">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active"><span>Category</span></li>
+                        </ol>
+                        <h1>Statistics - Device</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3><span>Retention</span></h3>
+    <div class="slider-range" ng-controller="device_range"></div>
+    <span class="slider-label"></span>
+
+
+    <div class="col-lg-12">
+        <div class="main-box">
+            <header class="main-box-header clearfix">
+                <h2>Error Rate by Device</h2>
+            </header>
+
+            <div class="main-box-body clearfix" ng-controller="device_rate_bar">
+                <div id="device-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-controller="device_morris_circle">
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="36">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone 3G</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="75">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone 3GS</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="80">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone 4</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="65">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone 4S</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="71">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2>iPhone 5</h2>
+                </header>
+
+                <div class="main-box-body clearfix">
+                    <div class="center-block" style="width: 200px;">
+                        <input class="knob" data-width="200" data-angleOffset="180" data-fgColor="#e84e40" data-skin="tron" data-thickness=".1" value="36">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
