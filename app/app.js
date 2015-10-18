@@ -3,7 +3,7 @@
 
 var honeyqa = angular.module("honeyqa",[
     'ngRoute',
-    'easypiechart',
+    'easypiechart'
 ]);
 
 
@@ -12,11 +12,6 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
 
 
     $routeProvider
-        //.when("/", {
-        //    templateUrl: "plist/project.html",
-        //    controller: "mainCtrl",
-        //    title: "project"
-        //})
         .when("/project", {
             templateUrl: "plist/project.html",
             controller: "mainCtrl",
@@ -63,6 +58,11 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             controller : "mainCtrl",
             title : "insight"
         })
+        .when("/error_filter", {
+            templateUrl: "views/error_filter.html",
+            controller : "mainCtrl",
+            title : "error_filter"
+        })
         .when("/appver", {
             templateUrl: "views/appver.html",
             controller : "mainCtrl",
@@ -87,11 +87,6 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             templateUrl: "views/class.html",
             controller : "mainCtrl",
             title : "class"
-        })
-        .when("/new_project", {
-            templateUrl: "views/new_project_part.html",
-            controller : "mainCtrl",
-            title : "new_project"
         })
         .otherwise({
             redirectTo:'/error-404'

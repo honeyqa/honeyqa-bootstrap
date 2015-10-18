@@ -1,0 +1,213 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="content-header" class="clearfix">
+            <div class="pull-left">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Category</span></li>
+                </ol>
+                <h1>Errors</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 main-box">
+    <h3><span>Retention</span></h3>
+    <div class="slider-range" ng-controller="device_range"></div>
+    <span class="slider-label"></span>
+
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">Filters</h2>
+
+
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+                    <table class="table">
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th><a href="#"><span>Order ID</span></a></th>-->
+                            <!--<th><a href="#" class="desc"><span>Date</span></a></th>-->
+                            <!--<th><a href="#" class="asc"><span>Customer</span></a></th>-->
+                            <!--<th class="text-center"><span>Status</span></th>-->
+                            <!--<th class="text-right"><span>Price</span></th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a href="#">RANK</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Unhandled</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Native</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Critical</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Major</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Minor</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">STATUS</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">New</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Open</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Fixed</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Ignore</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">APP VER</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">New</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Old</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Older</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Oldest</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">DEVICE</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Device_01</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Device_02</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Device_03</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">SDK</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">5.0</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">4.0</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">3.0</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">COUNTRY</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary">All</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Korea</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">US</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">China</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default">Japan</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="#">CLASS</a>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        ALL <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">ALL</a></li>
+                                        <li><a href="#">...</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="#">TAG</a>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        ALL <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">ALL</a></li>
+                                        <li><a href="#">...</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!--<ul class="pagination pull-right">-->
+                    <!--<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>-->
+                    <!--<li><a href="#">1</a></li>-->
+                    <!--<li><a href="#">2</a></li>-->
+                    <!--<li><a href="#">3</a></li>-->
+                    <!--<li><a href="#">4</a></li>-->
+                    <!--<li><a href="#">5</a></li>-->
+                    <!--<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>-->
+                <!--</ul>-->
+            </div>
+        </div>
+    </div>
+</div>

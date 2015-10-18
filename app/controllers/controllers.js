@@ -272,7 +272,7 @@ function device_range() {
     $('.slider-range').noUiSlider({
         range: [1, 30],
         start: [10, 15],
-        step: 5,
+        step: 1,
         connect: true,
         slide: function(){
             var values = $(this).val();
