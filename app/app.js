@@ -2,7 +2,8 @@
 
 
 var honeyqa = angular.module("honeyqa",[
-    'ngRoute'
+    'ngRoute',
+    'easypiechart',
 ]);
 
 
@@ -50,12 +51,6 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             templateUrl: "plist/t_cordova.html",
             controller: "mainCtrl",
             title: "t_cordova"
-        })
-        .when("/", {
-            templateUrl: "views/overview.html",
-            controller : "mainCtrl",
-            title : "overview",
-            //resolve : resolve_js('endless_dashboard')
         })
         .when("/overview", {
             templateUrl: "views/overview.html",
