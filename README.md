@@ -1,1 +1,1 @@
-# honeyqa_bootstrap
+# honeyqa-bootstrap
