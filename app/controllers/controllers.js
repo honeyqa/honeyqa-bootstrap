@@ -2,6 +2,7 @@
  * Created by NE_LEADER on 2015. 10. 5..
  */
 
+
 function mainCtrl($scope) {
     //$('#page-wrapper').removeClass('nav-small');
 }
@@ -12,11 +13,24 @@ function emailCtrl($scope) {
     }
 }
 
-function weeklyErrorCtrl($scope) {
-    $(function	()	{
-        //Flot Chart
-        //Website traffic chart
-        var init = { data: [[0, 5], [1, 8], [2, 5], [3, 8], [4, 7], [5,9], [6, 8], [7, 8], [8, 10], [9, 12], [10, 10]],
+
+function overview_weekly_error($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/4/weekly_appruncount'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+        var init = {
+                data: [
+                    [ 0, data.weekly[0].error_count],
+                    [ 1, data.weekly[1].error_count],
+                    [ 2, data.weekly[2].error_count],
+                    [ 3, data.weekly[3].error_count],
+                    [ 4, data.weekly[4].error_count],
+                    [ 5, data.weekly[5].error_count],
+                    [ 6, data.weekly[6].error_count]
+                ],
                 label: "Visitor"
             },
             options = {
@@ -60,9 +74,26 @@ function weeklyErrorCtrl($scope) {
                 }
             });
         }
-
         animate();
 
+    }, function errorCallback(response) {
+        console.log('error :' + response);
+    });
+}
+
+function overview_most_session_app_ver($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://api2.honeyqa.io:8080/project/4/most/sessionbyappver'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+        var appver = data.appversion;
+        var count = data.count;
+        console.log('appver : ' + appver);
+        console.log('count : ' + count);
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
     });
 
 }
@@ -504,9 +535,12 @@ angular
     .module('honeyqa')
     .controller('mainCtrl', mainCtrl)
     .controller('emailCtrl', emailCtrl)
+    .controller('overview_weekly_error', overview_weekly_error)
+    .controller('overview_most_session_app_ver', overview_most_session_app_ver)
+
+
     .controller('easyChartCtrl', easyChartCtrl)
     .controller('dashboardFlotCtrl', dashboardFlotCtrl)
-    .controller('weeklyErrorCtrl', weeklyErrorCtrl)
     .controller('insight_donut', insight_donut)
     .controller('insight_error_list', insight_error_list)
     .controller('appver_session_graph', appver_session_graph)
