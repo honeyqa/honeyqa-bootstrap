@@ -2,7 +2,8 @@
 
 
 var honeyqa = angular.module("honeyqa",[
-    'ngRoute'
+    'ngRoute',
+    'easypiechart'
 ]);
 
 

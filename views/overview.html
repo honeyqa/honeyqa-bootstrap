@@ -17,20 +17,20 @@
     </div>
 </div>
 
-
-<div class="panel panel-default" ng-controller="overview_weekly_error">
-    <div class="panel-heading clearfix">
-        <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Weekly Errors</span>
-    </div>
-    <div class="panel-body" id="trafficWidget">
-        <div id="placeholder" class="graph" style="height:250px"></div>
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Weekly Errors</span>
+        </div>
+        <div class="panel-body" id="trafficWidget">
+            <div id="placeholder" class="graph" style="height:250px"></div>
+        </div>
     </div>
 </div>
 
 
 
-
-<div class="col-lg-6 col-md-6 col-sm-6" ng-controller="easyChartCtrl">
+<div class="col-lg-6 col-md-6 col-sm-6" ng-controller="overview_most_session_app_ver">
     <div class="main-box clearfix project-box green-box">
         <div class="main-box-body clearfix">
             <div class="project-box-header green-bg">
@@ -42,7 +42,7 @@
             </div>
 
             <div class="project-box-content">
-					<span class="chart" easypiechart percent="86" options="optionsGreen">
+					<span class="chart" easypiechart percent="percent" options="optionsGreen">
 						<span class="percent"></span>%<br/>
 						<span class="lbl">session version</span>
 					</span>
@@ -51,6 +51,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="col-lg-6 col-md-6 col-sm-6" ng-controller="easyChartCtrl">
     <div class="main-box clearfix project-box red-box">
@@ -64,7 +65,7 @@
             </div>
 
             <div class="project-box-content">
-					<span class="chart" easypiechart percent="43" options="optionsRed">
+					<span class="chart" easypiechart percent="percent" options="optionsRed">
 						<span class="percent"></span>%<br/>
 						<span class="lbl">error version</span>
 					</span>

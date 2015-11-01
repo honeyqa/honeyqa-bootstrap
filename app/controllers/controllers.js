@@ -17,7 +17,7 @@ function emailCtrl($scope) {
 function overview_weekly_error($scope, $http) {
     $http({
         method: 'GET',
-        url: 'http://honeyqa.io:8080/project/4/weekly_appruncount'
+        url: 'http://honeyqa.io:8080/project/1234/weekly_appruncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -84,18 +84,51 @@ function overview_weekly_error($scope, $http) {
 function overview_most_session_app_ver($scope, $http) {
     $http({
         method: 'GET',
-        url: 'http://api2.honeyqa.io:8080/project/4/most/sessionbyappver'
+        url: 'http://honeyqa.io:8080/project/1234/most/sessionbyappver'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
-        var appver = data.appversion;
-        var count = data.count;
-        console.log('appver : ' + appver);
-        console.log('count : ' + count);
+        console.log(data.appversion);
+        console.log(data.count);
+
+        $scope.percent = data.count;
+        $scope.options = {
+            barColor: '#03a9f4',
+            trackColor: '#f2f2f2',
+            scaleColor: false,
+            lineWidth: 8,
+            size: 130,
+            animate: 1500,
+            onStep: function(from, to, percent) {
+                $(this.el).find('.percent').text(Math.round(percent));
+            }
+        };
+
+        $scope.optionsGreen = angular.copy($scope.options);
+        $scope.optionsGreen.barColor = '#8bc34a';
+
+
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
 
+
+
+    //$scope.percent = 4;
+    //$scope.options = {
+    //    barColor: '#03a9f4',
+    //    trackColor: '#f2f2f2',
+    //    scaleColor: false,
+    //    lineWidth: 8,
+    //    size: 130,
+    //    animate: 1500,
+    //    onStep: function(from, to, percent) {
+    //        $(this.el).find('.percent').text(Math.round(percent));
+    //    },
+    //};
+    //
+    //$scope.optionsGreen = angular.copy($scope.options);
+    //$scope.optionsGreen.barColor = '#8bc34a';
 }
 
 function easyChartCtrl($scope) {

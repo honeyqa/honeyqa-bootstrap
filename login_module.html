@@ -28,6 +28,20 @@
     <!-- Project List CSS -->
     <link rel="stylesheet" type="text/css" href="css/total.css" />
 
+    <style>
+        .menu a{cursor:pointer;}
+        .menu ul{display:none;}
+
+        ul, li{
+            list-style:none;
+        }
+        a, ul, li {
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    </style>
+
 </head>
 <body id="login-page">
 
@@ -79,8 +93,39 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="row">
+                                <li class="menu">
+                                   <a>Register Now</a>
+                                    <ul>
+                                        <li>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                                <input type="password" class="form-control" placeholder="Email address">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                                <input type="password" class="form-control" placeholder="Password Confirm">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                                <input type="password" class="form-control" placeholder="Nickname">
+                                            </div>
+                                            <button type="button" class="btn col-xs-12 btn-twitter">
+                                                Sign Up
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </li>
+                        </div>
                     </form>
                 </div>
+
+
 
 
 
@@ -102,6 +147,9 @@
 <!-- Bootstrap -->
 <script src="js/bootstrap.js"></script>
 
+<!--<script src="js/angular.min.js"></script>-->
+<script src="js/angular-animate.js"></script>
+<script src="js/angular.easypiechart.min.js"></script>
 
 <!-- Angular Controller -->
 <script src="app/app.js"></script>
@@ -110,6 +158,21 @@
 <script src="app/filters/filters.js"></script>
 <script src="app/services/services.js"></script>
 
+<script>
+    $(document).ready(function(){
+        // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+        $(".menu>a").click(function(){
+            var submenu = $(this).next("ul");
+
+            // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
