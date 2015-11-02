@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="col-lg-12">
+<div class="col-lg-12" ng-controller="overview_weekly_error">
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
             <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Weekly Errors</span>
@@ -42,9 +42,9 @@
             </div>
 
             <div class="project-box-content">
-					<span class="chart" easypiechart percent="percent" options="optionsGreen">
+					<span class="chart" easypiechart options="options" percent="percent">
 						<span class="percent"></span>%<br/>
-						<span class="lbl">session version</span>
+                        {{appversion}}
 					</span>
             </div>
 
@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="col-lg-6 col-md-6 col-sm-6" ng-controller="easyChartCtrl">
+<div class="col-lg-6 col-md-6 col-sm-6" ng-controller="overview_most_error_app_ver">
     <div class="main-box clearfix project-box red-box">
         <div class="main-box-body clearfix">
             <div class="project-box-header red-bg">
@@ -65,9 +65,9 @@
             </div>
 
             <div class="project-box-content">
-					<span class="chart" easypiechart percent="percent" options="optionsRed">
+					<span class="chart" easypiechart percent="percent" options="options">
 						<span class="percent"></span>%<br/>
-						<span class="lbl">error version</span>
+						{{appversion}}
 					</span>
             </div>
 
@@ -75,12 +75,12 @@
     </div>
 </div>
 
-<div class="col-md-3 col-sm-6 col-xs-12">
+<div class="col-md-3 col-sm-6 col-xs-12" ng-controller="overview_most_error_device">
     <div class="main-box small-graph-box emerald-bg">
         <span class="headline">Device</span>
-        <span class="value">Galaxy Note 4</span>
+        <span class="value">{{device_name}}</span>
         <div class="progress">
-            <div style="width: 84%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="84" role="progressbar" class="progress-bar">
+            <div style="width: {{device_count}}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="4" role="progressbar" class="progress-bar">
             </div>
         </div>
 			<span class="subinfo">

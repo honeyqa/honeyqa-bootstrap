@@ -31,7 +31,7 @@ function overview_weekly_error($scope, $http) {
                     [ 5, data.weekly[5].error_count],
                     [ 6, data.weekly[6].error_count]
                 ],
-                label: "Visitor"
+                label: "Error"
             },
             options = {
                 series: {
@@ -88,53 +88,16 @@ function overview_most_session_app_ver($scope, $http) {
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
-        console.log(data.appversion);
-        console.log(data.count);
-
         $scope.percent = data.count;
-        $scope.options = {
-            barColor: '#03a9f4',
-            trackColor: '#f2f2f2',
-            scaleColor: false,
-            lineWidth: 8,
-            size: 130,
-            animate: 1500,
-            onStep: function(from, to, percent) {
-                $(this.el).find('.percent').text(Math.round(percent));
-            }
-        };
-
-        $scope.optionsGreen = angular.copy($scope.options);
-        $scope.optionsGreen.barColor = '#8bc34a';
+        $scope.appversion = data.appversion;
 
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
 
-
-
-    //$scope.percent = 4;
-    //$scope.options = {
-    //    barColor: '#03a9f4',
-    //    trackColor: '#f2f2f2',
-    //    scaleColor: false,
-    //    lineWidth: 8,
-    //    size: 130,
-    //    animate: 1500,
-    //    onStep: function(from, to, percent) {
-    //        $(this.el).find('.percent').text(Math.round(percent));
-    //    },
-    //};
-    //
-    //$scope.optionsGreen = angular.copy($scope.options);
-    //$scope.optionsGreen.barColor = '#8bc34a';
-}
-
-function easyChartCtrl($scope) {
-    $scope.percent = 65;
     $scope.options = {
-        barColor: '#03a9f4',
+        barColor: '#8bc34a',
         trackColor: '#f2f2f2',
         scaleColor: false,
         lineWidth: 8,
@@ -142,24 +105,70 @@ function easyChartCtrl($scope) {
         animate: 1500,
         onStep: function(from, to, percent) {
             $(this.el).find('.percent').text(Math.round(percent));
-        },
+        }
     };
+}
 
-    $scope.optionsGreen = angular.copy($scope.options);
-    $scope.optionsGreen.barColor = '#8bc34a';
+function overview_most_error_app_ver($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1234/most/errorbyappver'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
 
-    $scope.optionsRed = angular.copy($scope.options);
-    $scope.optionsRed.barColor = '#e84e40';
 
-    $scope.optionsYellow = angular.copy($scope.options);
-    $scope.optionsYellow.barColor = '#ffc107';
+        $scope.percent = data.count;
+        $scope.appversion = data.appversion;
 
-    $scope.optionsPurple = angular.copy($scope.options);
-    $scope.optionsPurple.barColor = '#9c27b0';
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
 
-    $scope.optionsGray = angular.copy($scope.options);
-    $scope.optionsGray.barColor = '#90a4ae';
-};
+    $scope.options = {
+        barColor: '#e84e40',
+        trackColor: '#f2f2f2',
+        scaleColor: false,
+        lineWidth: 8,
+        size: 130,
+        animate: 1500,
+        onStep: function(from, to, percent) {
+            $(this.el).find('.percent').text(Math.round(percent));
+        }
+    };
+}
+
+function overview_most_error_device($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1234/most/errorbydevice'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        console.log(data.count);
+        console.log(data.device);
+
+        $scope.device_name = data.device;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    //$scope.options = {
+    //    barColor: '#e84e40',
+    //    trackColor: '#f2f2f2',
+    //    scaleColor: false,
+    //    lineWidth: 8,
+    //    size: 130,
+    //    animate: 1500,
+    //    onStep: function(from, to, percent) {
+    //        $(this.el).find('.percent').text(Math.round(percent));
+    //    }
+    //};
+}
+
+
+
 
 function insight_donut($scope) {
     graphDonut = Morris.Donut({
@@ -570,9 +579,9 @@ angular
     .controller('emailCtrl', emailCtrl)
     .controller('overview_weekly_error', overview_weekly_error)
     .controller('overview_most_session_app_ver', overview_most_session_app_ver)
+    .controller('overview_most_error_app_ver', overview_most_error_app_ver)
+    .controller('overview_most_error_device', overview_most_error_device)
 
-
-    .controller('easyChartCtrl', easyChartCtrl)
     .controller('dashboardFlotCtrl', dashboardFlotCtrl)
     .controller('insight_donut', insight_donut)
     .controller('insight_error_list', insight_error_list)
