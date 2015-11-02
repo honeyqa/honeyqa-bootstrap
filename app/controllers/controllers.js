@@ -14,6 +14,8 @@ function emailCtrl($scope) {
 }
 
 
+
+
 function overview_weekly_error($scope, $http) {
     $http({
         method: 'GET',
@@ -145,27 +147,66 @@ function overview_most_error_device($scope, $http) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
-        console.log(data.count);
-        console.log(data.device);
-
         $scope.device_name = data.device;
+        $scope.width = data.count + '%';
+        $scope.device_count = data.count;
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
-
-    //$scope.options = {
-    //    barColor: '#e84e40',
-    //    trackColor: '#f2f2f2',
-    //    scaleColor: false,
-    //    lineWidth: 8,
-    //    size: 130,
-    //    animate: 1500,
-    //    onStep: function(from, to, percent) {
-    //        $(this.el).find('.percent').text(Math.round(percent));
-    //    }
-    //};
 }
+
+function overview_most_error_sdk($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1234/most/errorbysdkversion'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        $scope.sdk_level = data.sdkversion;
+        $scope.width = data.count + '%';
+        $scope.sdk_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+function overview_most_error_country($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1234/most/errorbycountry'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        $scope.country_name = data.country;
+        $scope.width = data.count + '%';
+        $scope.country_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+function overview_most_error_class($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1234/most/errorbyclassname'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        $scope.class_name = data.lastactivity;
+        $scope.width = data.count + '%';
+        $scope.class_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
 
 
 
@@ -184,6 +225,72 @@ function insight_donut($scope) {
         resize: true
     });
 }
+
+function insight_recommend_error_list($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/547/errors'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+        //$scope.class_name = data.lastactivity;
+        //$scope.width = data.count + '%';
+        //$scope.class_count = data.count;
+        var datalist = [];
+        for(var i = 0; i < data.errors.length; i++) {
+            datalist.push(data.errors[i]);
+        }
+        //$scope.errors = datalist;
+        //for (var i = 0; i < monthDays.length; i++ ) {
+        //    if (i % 7 == 0) dates.push([]);
+        //    dates[dates.length-1].push(monthDays[i]);
+        //}
+        //$scope.errors = data.errors;
+        //console.log($scope.errors);
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+//data: [
+//    [ 0, data.weekly[0].error_count],
+//    [ 1, data.weekly[1].error_count],
+//    [ 2, data.weekly[2].error_count],
+//    [ 3, data.weekly[3].error_count],
+//    [ 4, data.weekly[4].error_count],
+//    [ 5, data.weekly[5].error_count],
+//    [ 6, data.weekly[6].error_count]
+
+//$scope.users = [
+//    {name : "Anup Vasudeva", email : "anup.vasudeva2009@gmail.com", desc : "Description about Anup Vasudeva"},
+//    {name : "Amit Vasudeva", email : "amit.vasudeva2009@gmail.com", desc : "Description about Amit Vasudeva"},
+//    {name : "Vijay Kumar", email : "vijay.kumar@gmail.com", desc : "Description about Vijay Kumar"}
+//];
+//$scope.selected = false;
+//
+//$scope.toggleSelectedUser = function() {
+//    $scope.selected = !$scope.selected;
+//};
+//
+//$scope.isSelectedUser = function() {
+//    return $scope.selected;
+//};
+
+
+//Rank, Count, Error Name, Tags
+//
+//"error_id":4,
+//    "rank":0,
+//    "num_of_instance":74,
+//    "error_name":"java.lang.IllegalStateException: hello3",
+//    "error_classname":"com.example.helloworld2.MainActivity3",
+//    "linenum":18,
+//    "status":"Open",
+//    "update_date":"2015-10-10T15:00:00.000Z"
+
+
+
+
 
 function insight_error_list($scope) {
     var table = $('#table-example').dataTable({
@@ -581,6 +688,12 @@ angular
     .controller('overview_most_session_app_ver', overview_most_session_app_ver)
     .controller('overview_most_error_app_ver', overview_most_error_app_ver)
     .controller('overview_most_error_device', overview_most_error_device)
+    .controller('overview_most_error_sdk', overview_most_error_sdk)
+    .controller('overview_most_error_country', overview_most_error_country)
+    .controller('overview_most_error_class', overview_most_error_class)
+
+
+    .controller('insight_recommend_error_list', insight_recommend_error_list)
 
     .controller('dashboardFlotCtrl', dashboardFlotCtrl)
     .controller('insight_donut', insight_donut)
