@@ -19,7 +19,7 @@ function emailCtrl($scope) {
 function overview_weekly_error($scope, $http) {
     $http({
         method: 'GET',
-        url: 'http://honeyqa.io:8080/project/1288/weekly_appruncount'
+        url: 'https://honeyqa.io:8080/project/1288/weekly_appruncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
