@@ -19,7 +19,7 @@ function emailCtrl($scope) {
 function overview_weekly_error($scope, $http) {
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/weekly_appruncount'
+        url: 'http://honeyqa.io:8080/project/1288/weekly_appruncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -93,7 +93,7 @@ function overview_most_session_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/sessionbyappver'
+        url: 'http://honeyqa.io:8080/project/1288/most/sessionbyappver'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
         counting = data.count;
@@ -105,7 +105,7 @@ function overview_most_session_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/weekly_sessioncount'
+        url: 'http://honeyqa.io:8080/project/1288/weekly_sessioncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
         total = data.weekly_sessioncount;
@@ -136,7 +136,7 @@ function overview_most_error_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/errorbyappver'
+        url: 'http://honeyqa.io:8080/project/1288/most/errorbyappver'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -144,8 +144,6 @@ function overview_most_error_app_ver($scope, $http) {
 
         $scope.appversion = data.appversion;
 
-        console.log('count : ' + data.count);
-        console.log('appversion : ' + data.appversion);
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -153,13 +151,11 @@ function overview_most_error_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'http://honeyqa.io:8080/project/1288/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
         total = data.weekly_instancecount;
 
-
-        console.log('error : ' + data.weekly_instancecount);
 
         $scope.percent = parseInt((counting / total) * 100);
 
@@ -181,16 +177,30 @@ function overview_most_error_app_ver($scope, $http) {
 }
 
 function overview_most_error_device($scope, $http) {
+
+    var counting;
+
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/errorbydevice'
+        url: 'http://honeyqa.io:8080/project/1288/most/errorbydevice'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
         $scope.device_name = data.device;
-        $scope.width = data.count + '%';
+        counting = data.count;
         $scope.device_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1288/weekly_errorcount'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+        $scope.width = parseInt((counting / data.weekly_instancecount) * 100) + '%';
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -198,16 +208,30 @@ function overview_most_error_device($scope, $http) {
 }
 
 function overview_most_error_sdk($scope, $http) {
+    var counting;
+
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/errorbysdkversion'
+        url: 'http://honeyqa.io:8080/project/1288/most/errorbysdkversion'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
-        $scope.sdk_level = data.sdkversion;
-        $scope.width = data.count + '%';
+        $scope.sdk_level = data.osversion;
+        counting = data.count;
         $scope.sdk_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1288/weekly_errorcount'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+        $scope.width = parseInt((counting / data.weekly_instancecount) * 100) + '%';
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -215,16 +239,30 @@ function overview_most_error_sdk($scope, $http) {
 }
 
 function overview_most_error_country($scope, $http) {
+    var counting;
+
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/errorbycountry'
+        url: 'http://honeyqa.io:8080/project/1288/most/errorbycountry'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
         $scope.country_name = data.country;
-        $scope.width = data.count + '%';
+        counting = data.count;
         $scope.country_count = data.count;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1288/weekly_errorcount'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+        $scope.width = parseInt((counting / data.weekly_instancecount) * 100) + '%';
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -232,17 +270,31 @@ function overview_most_error_country($scope, $http) {
 }
 
 function overview_most_error_class($scope, $http) {
+
+    var counting;
+
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/1288/most/errorbyclassname'
+        url: 'http://honeyqa.io:8080/project/1288/most/errorbyclassname'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
         $scope.class_name = data.lastactivity;
-        $scope.width = data.count + '%';
-        $scope.class_count = data.count;
+        counting = data.count;
+        $scope.country_count = data.count;
 
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://honeyqa.io:8080/project/1288/weekly_errorcount'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+        $scope.width = parseInt((counting / data.weekly_instancecount) * 100) + '%';
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -271,23 +323,13 @@ function insight_donut($scope) {
 function insight_recommend_error_list($scope, $http) {
     $http({
         method: 'GET',
-        url: '//honeyqa.io:8080/project/547/errors'
+        url: 'http://honeyqa.io:8080/project/547/errors'
     }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data))
-        //$scope.class_name = data.lastactivity;
-        //$scope.width = data.count + '%';
-        //$scope.class_count = data.count;
-        var datalist = [];
-        for(var i = 0; i < data.errors.length; i++) {
-            datalist.push(data.errors[i]);
-        }
-        //$scope.errors = datalist;
-        //for (var i = 0; i < monthDays.length; i++ ) {
-        //    if (i % 7 == 0) dates.push([]);
-        //    dates[dates.length-1].push(monthDays[i]);
-        //}
-        //$scope.errors = data.errors;
-        //console.log($scope.errors);
+        var data = JSON.parse(JSON.stringify(response.data));
+
+
+        $scope.errors = data.errors;
+
 
     }, function errorCallback(response) {
         console.log('error : ' + response);

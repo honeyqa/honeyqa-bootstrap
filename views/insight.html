@@ -60,9 +60,9 @@
                     </tr>
                     </thead>
                     <tbody ng-controller="insight_recommend_error_list"> <!-- ng-repeat="error in errors" -->
-                    <tr>
+                    <tr ng-repeat="error in errors">
                         <td>{{error.rank}}</td>
-                        <td>{{error.numofinstances}}</td>
+                        <td>{{error.numofinstance}}</td>
                         <td>{{error.errorname}}</td>
                         <td>Tags Test</td>
                     </tr>
