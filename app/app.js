@@ -88,6 +88,16 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             controller : "mainCtrl",
             title : "class"
         })
+        .when("/proguard",{
+            templateUrl: "views/proguard.html",
+            controller : "mainCtrl",
+            title : "class"
+        })
+        .when("/dsym",{
+            templateUrl: "views/dsym.html",
+            controller : "mainCtrl",
+            title : "class"
+        })
         .otherwise({
             redirectTo:'/error-404'
         });

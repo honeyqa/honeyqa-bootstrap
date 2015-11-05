@@ -680,6 +680,12 @@ function class_flot_donut() {
     }
 }
 
+
+function proguardList($scope, $http) {
+}
+
+function dsymList($scope, $http) {
+}
 angular
     .module('honeyqa')
     .controller('mainCtrl', mainCtrl)
@@ -707,3 +713,5 @@ angular
     .controller('sdk_flot_bar', sdk_flot_bar)
     .controller('country_map', country_map)
     .controller('class_flot_donut', class_flot_donut)
+    .controller('proguardList', proguardList)
+    .controller('dsymList', dsymList)
