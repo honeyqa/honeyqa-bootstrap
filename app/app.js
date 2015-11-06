@@ -58,10 +58,10 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             controller : "mainCtrl",
             title : "insight"
         })
-        .when("/error_filter", {
-            templateUrl: "views/error_filter.html",
+        .when("/errors", {
+            templateUrl: "views/errors.html",
             controller : "mainCtrl",
-            title : "error_filter"
+            title : "errors"
         })
         .when("/appver", {
             templateUrl: "views/appver.html",
@@ -98,10 +98,14 @@ honeyqa.config(['$routeProvider', function($routeProvider) {
             controller : "mainCtrl",
             title : "class"
         })
+        .when("/detail/:error_id",{
+            templateUrl: "views/detail.html",
+            controller : "mainCtrl",
+            title : "detail"
+        })
         .otherwise({
             redirectTo:'/error-404'
         });
-
 
 }]);
 

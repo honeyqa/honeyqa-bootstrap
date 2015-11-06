@@ -59,13 +59,14 @@
                         <th>Tags</th>
                     </tr>
                     </thead>
-                    <tbody ng-controller="insight_recommend_error_list"> <!-- ng-repeat="error in errors" -->
+                    <tbody ng-controller="insight_recommend_error_list">
                     <tr ng-repeat="error in errors">
                         <td>{{error.rank}}</td>
                         <td>{{error.numofinstance}}</td>
                         <td>{{error.errorname}}</td>
-                        <td>Tags Test</td>
+                        <td ng-repeat="t in error.tags">{{t.tag}}</td>
                     </tr>
+
 
                     </tbody>
                 </table>

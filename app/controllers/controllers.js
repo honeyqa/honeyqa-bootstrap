@@ -320,57 +320,93 @@ function insight_donut($scope) {
     });
 }
 
-function insight_recommend_error_list($scope, $http) {
+function insight_recommend_error_list($scope, $http, $location) {
     $http({
         method: 'GET',
-        url: 'http://honeyqa.io:8080/project/547/errors'
+        url: 'https://honeyqa.io:8080/project/547/errors'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
-
         $scope.errors = data.errors;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $scope.insight_error_click_route = function(error_id){
+        //console.log("error_id : " + error_id);
+        var detail_path = '/detail/' + error_id;
+        //console.log("detail_path : " + detail_path);
+        $location.path(detail_path);
+    }
+}
+
+
+function error_detail_load($scope, $http, $routeParams) {
+    var errorid = $routeParams.error_id;
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/error/' + errorid
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        $scope.error_full_name = data.errorname;
+        $scope.error_class_name = data.errorclassname;
+        $scope.createdate = data.create_date;
+        $scope.updatedate = data.update_date;
+        $scope.error_count = data.numofinstances;
+        $scope.stat = data.status;
+        $scope.wifi_count = parseFloat((data.wifion / data.numofinstances) * 100).toFixed(2) + '%';
+        $scope.mobile_network_count = parseFloat((data.mobileon / data.numofinstances).toFixed(2) * 100) + '%';
+        $scope.gps_count = parseFloat((data.gpson / data.numofinstances).toFixed(2) * 100) + '%';
+        $scope.memory_usage = parseInt(data.totalmemusage / 1024) + 'MB';
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/error/' + errorid + '/tags'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+        $scope.taglist = data;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/error/' + errorid + '/callstack'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        //$scope.stack = data.spilt("n");
+
+        var string_change = data.callstack + "";
+
+        var stack = string_change.split('\n\t');
+        console.log('stack : ' + stack);
+        console.log('stack[0] : ' + stack[0]);
+        console.log('stack[1] : ' + stack[1]);
+        console.log('stack[2] : ' + stack[2]);
+
+
+        $scope.callstacks = stack;
 
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
+
+
+
 }
 
-//data: [
-//    [ 0, data.weekly[0].error_count],
-//    [ 1, data.weekly[1].error_count],
-//    [ 2, data.weekly[2].error_count],
-//    [ 3, data.weekly[3].error_count],
-//    [ 4, data.weekly[4].error_count],
-//    [ 5, data.weekly[5].error_count],
-//    [ 6, data.weekly[6].error_count]
-
-//$scope.users = [
-//    {name : "Anup Vasudeva", email : "anup.vasudeva2009@gmail.com", desc : "Description about Anup Vasudeva"},
-//    {name : "Amit Vasudeva", email : "amit.vasudeva2009@gmail.com", desc : "Description about Amit Vasudeva"},
-//    {name : "Vijay Kumar", email : "vijay.kumar@gmail.com", desc : "Description about Vijay Kumar"}
-//];
-//$scope.selected = false;
-//
-//$scope.toggleSelectedUser = function() {
-//    $scope.selected = !$scope.selected;
-//};
-//
-//$scope.isSelectedUser = function() {
-//    return $scope.selected;
-//};
 
 
-//Rank, Count, Error Name, Tags
-//
-//"error_id":4,
-//    "rank":0,
-//    "num_of_instance":74,
-//    "error_name":"java.lang.IllegalStateException: hello3",
-//    "error_classname":"com.example.helloworld2.MainActivity3",
-//    "linenum":18,
-//    "status":"Open",
-//    "update_date":"2015-10-10T15:00:00.000Z"
 
 
 
@@ -781,9 +817,8 @@ angular
     .controller('overview_most_error_sdk', overview_most_error_sdk)
     .controller('overview_most_error_country', overview_most_error_country)
     .controller('overview_most_error_class', overview_most_error_class)
-
-
     .controller('insight_recommend_error_list', insight_recommend_error_list)
+    .controller('error_detail_load', error_detail_load)
 
     .controller('dashboardFlotCtrl', dashboardFlotCtrl)
     .controller('insight_donut', insight_donut)
