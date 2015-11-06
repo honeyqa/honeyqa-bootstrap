@@ -305,6 +305,21 @@ function overview_most_error_class($scope, $http) {
 
 
 
+function insight_donut($scope) {
+    graphDonut = Morris.Donut({
+        element: 'hero-donut',
+        data: [
+            {label: 'Unhandled', value: 25 },
+            {label: 'Critical', value: 40 },
+            {label: 'Native', value: 25 },
+            {label: 'etc', value: 10 }
+        ],
+        colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+        formatter: function (y) { return y + "%" },
+        resize: true
+    });
+}
+
 function insight_recommend_error_list($scope, $http, $location) {
     $http({
         method: 'GET',
@@ -362,44 +377,6 @@ function error_detail_load($scope, $http, $routeParams) {
         console.log('error : ' + response);
     });
 
-
-    $http({
-        method: 'GET',
-        //url: 'https://honeyqa.io:8080/error/' + errorid + '/tags'
-        url: 'https://honeyqa.io:8080/error/891841/statistics'
-    }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data));
-
-        //data.tatal_error_count
-        //data.appversion_counts[0].appversion
-        //data.appversion_counts[0].count
-
-    }, function errorCallback(response) {
-        console.log('error : ' + response);
-    });
-
-    function insight_donut($scope) {
-        graphDonut = Morris.Donut({
-            element: 'hero-donut',
-            data: [
-                {label: 'Unhandled', value: 25 },
-                {label: 'Critical', value: 40 },
-                {label: 'Native', value: 25 },
-                {label: 'etc', value: 10 }
-            ],
-            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
-            formatter: function (y) { return y + "%" },
-            resize: true
-        });
-    }
-
-    {"tatal_error_count":888,
-        "appversion_counts":[{"appversion":"3.0.0","count":887},{"appversion":"3.0.1","count":1}],
-        "device_counts":[{"device":"P220","count":887},{"device":"P220-2","count":1}],
-        "sdkversion_counts":[{"country":"US","count":887},{"country":"KR","count":1}]}
-
-
-
     $http({
         method: 'GET',
         url: 'https://honeyqa.io:8080/error/' + errorid + '/callstack'
@@ -408,38 +385,50 @@ function error_detail_load($scope, $http, $routeParams) {
 
         //$scope.stack = data.spilt("n");
 
-        var stack = (data.callstack).split('\n\t');
+        var string_change = data.callstack + "";
 
-        var json_return = [];
+        var stack = string_change.split('\n\t');
+        console.log('stack : ' + stack);
+        console.log('stack[0] : ' + stack[0]);
+        console.log('stack[1] : ' + stack[1]);
+        console.log('stack[2] : ' + stack[2]);
 
-        for(var z = 0; z < stack.length; z++) {
-            for(var i = 0; i < stack[z].length; i++) {
-                if(stack[z][i] == '(') {
-                    json_return.push({
-                        name : stack[z].substring(0, i - 1),
-                        code : stack[z].substring(i)
-                    })
 
+        $scope.callstacks = stack;
+
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
+
+
+}
+
+
+
+
+
+
+
+
+function insight_error_list($scope) {
+    var table = $('#table-example').dataTable({
+        'info': false,
+        'sDom': 'lTfr<"clearfix">tip',
+        'oTableTools': {
+            'aButtons': [
+                {
+                    'sExtends':    'collection',
+                    'sButtonText': '<i class="fa fa-cloud-download"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>',
+                    'aButtons':    [ 'csv', 'xls', 'pdf', 'copy', 'print' ]
                 }
-            }
+            ]
         }
-        $scope.cs = json_return;
-    }, function errorCallback(response) {
-        console.log('error : ' + response);
     });
 
-    $http({
-        method: 'GET',
-        //url: 'https://honeyqa.io:8080/error/' + errorid + '/tags'
-        url: 'https://honeyqa.io:8080/error/891841/instances'
-    }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data));
-        $scope.inst = data;
-
-    }, function errorCallback(response) {
-        console.log('error : ' + response);
-    });
-
+    var tt = new $.fn.dataTable.TableTools( table );
+    $( tt.fnContainer() ).insertBefore('div.dataTables_wrapper');
 }
 
 
