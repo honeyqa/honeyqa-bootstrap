@@ -1,257 +1,240 @@
 <div ng-controller="error_detail_load">
 
-<div class="row">
-    <div class="col-lg-12">
-        <div id="content-header" class="clearfix">
-            <div class="pull-left">
-                <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active"><span>Category</span></li>
-                </ol>
-                <h1>Errors - Detail</h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="main-box-body clearfix">
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <th>{{error_full_name}}</th>
-            </thead>
-            <tbody>
-            <!--<tr ng-repeat="error in errors">-->
-                <!--<td>{{error.rank}}</td>-->
-                <!--<td>{{error.numofinstance}}</td>-->
-                <!--<td>{{error.errorname}}</td>-->
-                <!--<td ng-repeat="t in error.tags">{{t.tag}}</td>-->
-            <!--</tr>-->
-            <tr>
-                <td>{{error_class_name}}</td>
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="col-lg-12">
-    <div class="main-box clearfix">
-        <header class="main-box-header clearfix">
-            <h2>Information</h2>
-        </header>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored emerald-bg">
-                <i class="fa fa-calendar"></i>
-                <span class="headline">Create Date</span>
-                <span class="value">{{createdate}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored red-bg">
-                <i class="fa fa-calendar-o"></i>
-                <span class="headline">Update Date</span>
-                <span class="value">{{updatedate}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored yellow-bg">
-                <i class="fa fa-clock-o"></i>
-                <span class="headline">Occur Count</span>
-                <span class="value">{{error_count}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored green-bg">
-                <i class="fa fa-filter"></i>
-                <span class="headline">Status</span>
-                <span class="value">{{stat}}</span>
-            </div>
-        </div>
-
-
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored emerald-bg">
-                <i class="fa fa-wifi"></i>
-                <span class="headline">Wi-Fi</span>
-                <span class="value">{{wifi_count}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored red-bg">
-                <i class="fa fa-mobile"></i>
-                <span class="headline">Mobile Network</span>
-                <span class="value">{{mobile_network_count}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored yellow-bg">
-                <i class="fa fa-map-marker"></i>
-                <span class="headline">GPS</span>
-                <span class="value">{{gps_count}}</span>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="main-box infographic-box colored green-bg">
-                <i class="fa fa-dashboard"></i>
-                <span class="headline">Memory</span>
-                <span class="value">{{memory_usage}}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-12">
-    <div class="main-box clearfix">
-        <header class="main-box-header clearfix">
-            <h2>Tag List</h2>
-        </header>
-
-        <div class="main-box-body clearfix" ng-repeat="t in taglist"  style="float:left">
-            <span class="label label-info label-large">{{t.tag}}</span>
-        </div>
-    </div>
-</div>
-
-
-
-    <div class="col-lg-12">
-    <div class="main-box clearfix">
-        <div class="col-lg-3" ng-controller="insight_donut">
-                <h3 class="clearfix" style="text-align: center;">Error by App Version</h3>
-                <div class="main-box-body clearfix">
-                    <div id="hero-donut"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="content-header" class="clearfix">
+                <div class="pull-left">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active"><span>Category</span></li>
+                    </ol>
+                    <h1>Errors - Detail</h1>
                 </div>
-        </div>
-
-        <div class="col-lg-3" ng-controller="">
-            <h3 class="clearfix" style="text-align: center;">Error by Device</h3>
-            <div class="main-box-body clearfix">
-                <div></div>
-            </div>
-        </div>
-
-        <div class="col-lg-3" ng-controller="">
-            <h3 class="clearfix" style="text-align: center;">Error by SDK Level</h3>
-            <div class="main-box-body clearfix">
-                <div></div>
-            </div>
-        </div>
-
-        <div class="col-lg-3" ng-controller="">
-            <h3 class="clearfix" style="text-align: center;">Error by Country</h3>
-            <div class="main-box-body clearfix">
-                <div></div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="col-lg-12">
-    <div class="main-box clearfix">
-        <header class="main-box-header clearfix">
-            <h2>Event Path</h2>
-        </header>
-
-        <div class="main-box-body clearfix">
-            우앙~ 이벤트 패th!
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-12">
-    <div class="main-box clearfix">
-        <header class="main-box-header clearfix">
-            <h2>Call Stack</h2>
-        </header>
-
-        <div class="main-box-body clearfix">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>Stack</th>
-                        <th>Source</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!--<tr ng-repeat="error in errors">-->
-                        <!--<td>{{error.rank}}</td>-->
-                        <!--<td>{{error.numofinstance}}</td>-->
-                        <!--<td>{{error.errorname}}</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>STACK_NUMBER</td>-->
-                        <!--<td>STACK_NAME</td>-->
-                        <!--<td>STACK_SOURCE</td>-->
-                    <!--</tr>-->
-                    <tr ng-repeat="s in callstacks">
-                        <!--<td>STACK_NUMBER</td>-->
-                        <td>{{s.length}}</td>
-                        <td>{{s}}</td>
-                        <td>{{s}}</td>
-                        <!--<td>STACK_SOURCE</td>-->
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-12">
-    <div class="main-box clearfix">
-        <header class="main-box-header clearfix">
-            <h2>Instance List</h2>
-        </header>
-
-        <div class="main-box-body clearfix">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Update Date</th>
-                        <th>SDK Level</th>
-                        <th>App Version</th>
-                        <th>Device</th>
-                        <th>Country</th>
-                        <th>Event Path</th>
-                        <th>Logs</th>
-                    </tr>
-                    </thead>
-                    <tbody ng-controller="">
-                    <!--<tr ng-repeat="error in errors">-->
+    <div class="main-box-body clearfix">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <th>{{error_full_name}}</th>
+                </thead>
+                <tbody>
+                <!--<tr ng-repeat="error in errors">-->
                     <!--<td>{{error.rank}}</td>-->
                     <!--<td>{{error.numofinstance}}</td>-->
                     <!--<td>{{error.errorname}}</td>-->
-                    <!--</tr>-->
-                    <tr>
-                        <td>INSTANCE_UPDATE_DATE</td>
-                        <td>INSTANCE_SDK_LEVEL</td>
-                        <td>INSTANCE_APP_VERSION</td>
-                        <td>INSTANCE_DEVICE</td>
-                        <td>INSTANCE_COUNTRY</td>
-                        <td>INSTANCE_EVENT_PATH</td>
-                        <td>INSTANCE_LOGS</td>
-                    </tr>
+                    <!--<td ng-repeat="t in error.tags">{{t.tag}}</td>-->
+                <!--</tr>-->
+                <tr>
+                    <td>{{error_class_name}}</td>
+                </tr>
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2>Information</h2>
+            </header>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored emerald-bg">
+                    <i class="fa fa-calendar"></i>
+                    <span class="headline">Create Date</span>
+                    <span class="value">{{createdate}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored red-bg">
+                    <i class="fa fa-calendar-o"></i>
+                    <span class="headline">Update Date</span>
+                    <span class="value">{{updatedate}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored yellow-bg">
+                    <i class="fa fa-clock-o"></i>
+                    <span class="headline">Occur Count</span>
+                    <span class="value">{{error_count}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored green-bg">
+                    <i class="fa fa-filter"></i>
+                    <span class="headline">Status</span>
+                    <span class="value">{{stat}}</span>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored emerald-bg">
+                    <i class="fa fa-wifi"></i>
+                    <span class="headline">Wi-Fi</span>
+                    <span class="value">{{wifi_count}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored red-bg">
+                    <i class="fa fa-mobile"></i>
+                    <span class="headline">Mobile Network</span>
+                    <span class="value">{{mobile_network_count}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored yellow-bg">
+                    <i class="fa fa-map-marker"></i>
+                    <span class="headline">GPS</span>
+                    <span class="value">{{gps_count}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="main-box infographic-box colored green-bg">
+                    <i class="fa fa-dashboard"></i>
+                    <span class="headline">Memory</span>
+                    <span class="value">{{memory_usage}}</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2>Tag List</h2>
+            </header>
+
+            <div class="main-box-body clearfix" ng-repeat="t in taglist"  style="float:left">
+                <span class="label label-info label-large">{{t.tag}}</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <div class="col-lg-3" >
+                    <h3 class="clearfix" style="text-align: center;">Error by App Version</h3>
+                    <div class="main-box-body clearfix">
+                        <div id="hero-donut"></div>
+                    </div>
+            </div>
+
+            <div class="col-lg-3">
+                <h3 class="clearfix" style="text-align: center;">Error by Device</h3>
+                <div class="main-box-body clearfix">
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <h3 class="clearfix" style="text-align: center;">Error by SDK Level</h3>
+                <div class="main-box-body clearfix">
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <h3 class="clearfix" style="text-align: center;">Error by Country</h3>
+                <div class="main-box-body clearfix">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2>Event Path</h2>
+            </header>
+
+            <div class="main-box-body clearfix">
+                우앙~ 이벤트 패th!
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2>Call Stack</h2>
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Stack</th>
+                            <th>Source</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="s in cs">
+                            <td>{{$index}}</td>
+                            <td>{{s.name}}</td>
+                            <td>{{s.code}}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2>Instance List</h2>
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Update Date</th>
+                            <th>SDK Level</th>
+                            <th>App Version</th>
+                            <th>Device</th>
+                            <th>Country</th>
+                            <th>Event Path</th>
+                            <th>Logs</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="i in inst">
+                            <td>{{i.datetime}}</td>
+                            <td>{{i.sdkversion}}</td>
+                            <td>{{i.appversion}}</td>
+                            <td>{{i.device}}</td>
+                            <td>{{i.country}}</td>
+                            <td>Views</td>
+                            <td>Views</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
