@@ -394,7 +394,7 @@ function error_detail_load($scope, $http, $routeParams) {
         console.log('stack[2] : ' + stack[2]);
 
 
-        $scope.callstacks = stack;
+        $scope.callstacks = stack;;
 
 
     }, function errorCallback(response) {
