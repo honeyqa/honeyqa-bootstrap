@@ -388,20 +388,74 @@ function error_detail_load($scope, $http, $routeParams) {
         var string_change = data.callstack + "";
 
         var stack = string_change.split('\n\t');
-        console.log('stack : ' + stack);
-        console.log('stack[0] : ' + stack[0]);
-        console.log('stack[1] : ' + stack[1]);
-        console.log('stack[2] : ' + stack[2]);
 
 
-        $scope.callstacks = stack;
+
+        //$scope.callstacks = stack;
+
+
 
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
 
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/error/891841/statistics'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
 
+        var total_error_count = data.tatal_error_count;
+
+        graphDonut = Morris.Donut({
+            element: 'error_app_ver_donut',
+            data: [
+                {label : data.appversion_counts[0].appversion, value : data.appversion_counts[0].count },
+                {label : data.appversion_counts[1].appversion, value : data.appversion_counts[1].count }
+            ],
+            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            formatter: function (y) { return y},
+            resize: true
+        })
+
+        graphDonut = Morris.Donut({
+            element: 'error_device_donut',
+            data: [
+                {label : data.device_counts[0].device, value : data.device_counts[0].count },
+                {label : data.device_counts[1].device, value : data.device_counts[1].count }
+            ],
+            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            formatter: function (y) { return y},
+            resize: true
+        })
+
+        graphDonut = Morris.Donut({
+            element: 'error_sdk_level_donut',
+            data: [
+                {label : data.sdkversion_counts[0].osversion, value : data.sdkversion_counts[0].count },
+                {label : data.sdkversion_counts[1].osversion, value : data.sdkversion_counts[1].count }
+            ],
+            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            formatter: function (y) { return y},
+            resize: true
+        })
+
+        graphDonut = Morris.Donut({
+            element: 'error_country_donut',
+            data: [
+                {label : data.country_counts[0].country, value : data.country_counts[0].count },
+                {label : data.country_counts[1].country, value : data.country_counts[1].count }
+            ],
+            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            formatter: function (y) { return y},
+            resize: true
+        })
+
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
 
 }
 
