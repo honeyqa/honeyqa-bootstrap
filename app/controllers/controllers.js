@@ -472,7 +472,7 @@ function error_detail_load($scope, $http, $routeParams) {
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
-       $scope.inst = data;
+       $scope.insts = data;;
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
