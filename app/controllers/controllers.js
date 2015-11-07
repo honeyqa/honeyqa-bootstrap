@@ -462,6 +462,21 @@ function error_detail_load($scope, $http, $routeParams) {
         console.log('error : ' + response);
     });
 
+
+
+
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/error/891841/instances'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+       $scope.inst = data;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
 }
 
 

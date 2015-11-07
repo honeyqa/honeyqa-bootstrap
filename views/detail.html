@@ -230,20 +230,20 @@
                         <th>Logs</th>
                     </tr>
                     </thead>
-                    <tbody ng-controller="">
+                    <tbody>
                     <!--<tr ng-repeat="error in errors">-->
                     <!--<td>{{error.rank}}</td>-->
                     <!--<td>{{error.numofinstance}}</td>-->
                     <!--<td>{{error.errorname}}</td>-->
                     <!--</tr>-->
-                    <tr>
-                        <td>INSTANCE_UPDATE_DATE</td>
-                        <td>INSTANCE_SDK_LEVEL</td>
-                        <td>INSTANCE_APP_VERSION</td>
-                        <td>INSTANCE_DEVICE</td>
-                        <td>INSTANCE_COUNTRY</td>
-                        <td>INSTANCE_EVENT_PATH</td>
-                        <td>INSTANCE_LOGS</td>
+                    <tr ng-repeat="i in inst">
+                        <td>{{i.datetime}}</td>
+                        <td>{{i.osversion}}</td>
+                        <td>{{i.appversion}}</td>
+                        <td>{{i.device}}</td>
+                        <td>{{i.country}}</td>
+                        <td>views</td>
+                        <td>views</td>
                     </tr>
 
                     </tbody>
