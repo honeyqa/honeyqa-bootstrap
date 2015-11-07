@@ -46,7 +46,8 @@
                     <thead>
                     <tr>
                         <th>File Name</th>
-                        <th>App Version</th>
+                        <th>Architecture</th>
+                        <th>uuid</th>
                         <th>Upload Time</th>
                         <th></th>
                     </tr>
@@ -54,7 +55,8 @@
                     <tbody ng-controller="insight_recommend_error_list"> <!-- ng-repeat="error in errors" -->
                     <tr>
                         <td>File Name</td>
-                        <td>App Version</td>
+                        <td>Architecture</td>
+                        <td>uuid</td>
                         <td>Upload Time</td>
                         <td>remove</td>
                     </tr>
@@ -80,8 +82,12 @@
             <div class="modal-body">
                 <form class="form-inline" action="/upload" method="post" enctype="multipart/form-data" id="form_upload">
                     <div class="form-group">
-                        <input type="file" name="uploadFile">
-                        <input type="hidden" name="currParam" id="currParam">
+                        <table cellpadding="30">
+                            <tr>
+                                <td width="50%">appversion: <input type="text" name="appversion"></td>
+                                <td width="50%"><input type="file" name="uploadFile"></td>
+                            </tr>
+                        </table>
                         <p class="help-block"></p>
                     </div>
                 </form>
