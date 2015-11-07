@@ -389,12 +389,19 @@ function error_detail_load($scope, $http, $routeParams) {
 
         var stack = string_change.split('\n\t');
 
+        var json_return = [];
+        for(var z = 0; z < stack.length; z++) {
+            for(var i = 0; i < stack[z].length; i++) {
+                if(stack[z][i] == '(') {
+                    json_return.push({
+                        stack_name: stack[z].substring(0, i - 1),
+                        stack_source : stack[z].substring(i)
+                    });
+                }
+            }
+        }
 
-
-        //$scope.callstacks = stack;
-
-
-
+        $scope.cs = json_return;
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -405,8 +412,6 @@ function error_detail_load($scope, $http, $routeParams) {
         url: 'https://honeyqa.io:8080/error/891841/statistics'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
-
-        var total_error_count = data.tatal_error_count;
 
         graphDonut = Morris.Donut({
             element: 'error_app_ver_donut',

@@ -195,11 +195,11 @@
                         <!--<td>STACK_NAME</td>-->
                         <!--<td>STACK_SOURCE</td>-->
                     <!--</tr>-->
-                    <tr ng-repeat="s in callstacks">
+                    <tr ng-repeat="s in cs">
                         <!--<td>STACK_NUMBER</td>-->
-                        <td>{{s.length}}</td>
-                        <td>{{s}}</td>
-                        <td>{{s}}</td>
+                        <td>{{$index}}</td>
+                        <td>{{s.stack_name}}</td>
+                        <td>{{s.stack_source}}</td>
                         <!--<td>STACK_SOURCE</td>-->
                     </tr>
 
