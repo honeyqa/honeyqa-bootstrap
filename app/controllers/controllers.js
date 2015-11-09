@@ -82,15 +82,22 @@ function overview_weekly_error($scope, $http) {
         var data = JSON.parse(JSON.stringify(response.data))
 
 
+        for(var i = 0; i < data.weekly.length; i++) {
+            var temp = data.weekly[i].date + "";
+            temp = temp.replace('-', '')
+            temp = temp.replace('-', '')
+            data.weekly[i].date = temp;
+        }
+
         var init = {
                 data: [
-                    [ 0, data.weekly[0].error_count],
-                    [ 1, data.weekly[1].error_count],
-                    [ 2, data.weekly[2].error_count],
-                    [ 3, data.weekly[3].error_count],
-                    [ 4, data.weekly[4].error_count],
-                    [ 5, data.weekly[5].error_count],
-                    [ 6, data.weekly[6].error_count]
+                    [ parseInt(data.weekly[0].date), data.weekly[0].error_count],
+                    [ parseInt(data.weekly[1].date), data.weekly[1].error_count],
+                    [ parseInt(data.weekly[2].date), data.weekly[2].error_count],
+                    [ parseInt(data.weekly[3].date), data.weekly[3].error_count],
+                    [ parseInt(data.weekly[4].date), data.weekly[4].error_count],
+                    [ parseInt(data.weekly[5].date), data.weekly[5].error_count],
+                    [ parseInt(data.weekly[6].date), data.weekly[6].error_count]
                 ],
                 label: "Error"
             },
@@ -110,7 +117,13 @@ function overview_weekly_error($scope, $http) {
                     hoverable: true,
                     clickable: true
                 },
-                colors: ["#37b494"]
+                colors: ["#37b494"],
+                xaxis: {
+                    minTickSize : 1,
+                    tickFormatter: function (val, axis) {
+                        return val;
+                    }
+                }
             },
             plot;
 
@@ -128,7 +141,6 @@ function overview_weekly_error($scope, $http) {
                 duration: 3000,
                 step: function ( now, fx ) {
                     var r = $.map( init.data, function ( o ) {
-                        console.log(o[0], o[1], fx.pos);
                         return [[ o[0], o[1] * fx.pos ]];
                     });
                     plot.setData( [{ data: r }] );
@@ -339,7 +351,7 @@ function overview_most_error_class($scope, $http) {
 
         $scope.class_name = data.lastactivity;
         counting = data.count;
-        $scope.country_count = data.count;
+        $scope.class_count = data.count;
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
