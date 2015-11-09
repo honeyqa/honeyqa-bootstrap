@@ -1,12 +1,17 @@
+
+<div ng-controller="project_list_load_project">
+
+<div ng-repeat="p in pr">
+
 <div class="col-lg-4 col-md-5 col-sm-6">
     <a href="dashboard.html">
         <div class="main-box clearfix profile-box-menu">
             <div class="main-box-body clearfix">
-                <div class="profile-box-header green-bg clearfix" style="background-image: url(../../img/samples/nature2.jpg);">
-                    <img src="img/samples/angelina-300.jpg" alt="" class="profile-img img-responsive" />
-                    <h2>APPLICATION<br/>NAME</h2>
+                <div class="profile-box-header green-bg clearfix">
+                    <img ng-src="img/default_os/{{p.platform}}.jpg" alt="" class="profile-img img-responsive" />
+                    <h2>{{p.title}}</h2>
                     <div class="job-position">
-                        Android
+                        {{p.platform}}
                     </div>
                 </div>
                 <div class="profile-box-content clearfix">
@@ -14,25 +19,25 @@
                         <li>
                             <a href="" class="clearfix">
                                 <i class="fa fa-bell-o fa-lg"></i> API_KEY
-                                <span class="label label-danger  pull-right">1234asdf</span>
+                                <span class="label label-danger  pull-right">{{p.apikey}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="" class="clearfix">
                                 <i class="fa fa-user fa-lg"></i> Platform
-                                <span class="label label-success  pull-right">Android</span>
+                                <span class="label label-success  pull-right">{{p.platform}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="" class="clearfix">
                                 <i class="fa fa-calendar fa-lg"></i> Mode
-                                <span class="label label-warning  pull-right">Release</span>
+                                <span class="label label-warning  pull-right">{{p.stage}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="" class="clearfix">
                                 <i class="fa fa-envelope fa-lg"></i> Error Count
-                                <span class="label label-primary  pull-right">44</span>
+                                <span class="label label-primary  pull-right">{{p.weekly_errorcount}}</span>
                             </a>
                         </li>
                     </ul>
@@ -40,4 +45,8 @@
             </div>
         </div>
     </a>
+</div>
+
+
+</div>
 </div>

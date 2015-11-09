@@ -52,7 +52,7 @@
     <link rel="stylesheet" type="text/css" href="css/total.css" />
 
 </head>
-<body>
+<body ng-controller="project_list_profile">
 
 <div id="theme-wrapper">
     <header class="navbar" id="header-navbar">
@@ -70,21 +70,15 @@
             <div id="nav-col">
                 <section id="col-left" class="col-left-nano">
                     <div id="col-left-inner" class="col-left-nano-content">
-                        <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
-                            <img alt="" src="img/scarlet-159.png" />
+                        <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown">
+                            <img alt="" ng-src={{profile_pic}} />
                             <div class="user-box">
-									<span class="name">
-										<a class="dropdown-toggle" data-toggle="dropdown">
-                                            Name
-                                            <!--<i class="fa fa-angle-down"></i>-->
-                                        </a>
-										<!--<ul class="dropdown-menu">-->
-                                            <!--<li><a href="#/pages/user-profile"><i class="fa fa-user"></i>Profile</a></li>-->
-                                            <!--<li><a href=""><i class="fa fa-cog"></i>Settings</a></li>-->
-                                            <!--<li><a href=""><i class="fa fa-envelope-o"></i>Messages</a></li>-->
-                                            <!--<li><a href=""><i class="fa fa-power-off"></i>Logout</a></li>-->
-                                        <!--</ul>-->
-									</span>
+                                <span class="name">
+                                    <a class="dropdown-toggle">
+                                        {{nickname}}
+                                        <!--<i class="fa fa-angle-down"></i>-->
+                                    </a>
+                                </span>
                             </div>
                         </div>
                         <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav" bs-navbar>

@@ -14,6 +14,64 @@ function emailCtrl($scope) {
 }
 
 
+function project_list_profile($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/user/2'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        if(data.image_path == "./images/user_profiles/noimage.jpg") {
+            $scope.profile_pic = 'img/default_pic.jpg';
+        }
+        else {
+            $scope.profile_pic = data.image_path;
+        }
+        $scope.nickname = data.nickname;
+
+    }, function errorCallback(response) {
+        console.log('error :' + response);
+    });
+}
+
+
+function project_list_load_project($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/projects/2'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data))
+
+
+        for(var i = 0; i < data.projects.length; i++) {
+            if(data.projects[i].platform == 0) {
+                data.projects[i].platform = 'Android';
+            }
+            else if(data.projects[i].platform == 1) {
+                data.projects[i].platform = '두마에?';
+            }
+            else if(data.projects[i].platform == 2) {
+                data.projects[i].platform = 'iOS';
+            }
+            else if(data.projects[i].platform == 3) {
+                data.projects[i].platform = 'Unity';
+            }
+            else if(data.projects[i].platform == 4) {
+                data.projects[i].platform = 'Cordova';
+            }
+            else if(data.projects[i].platform == 5) {
+                data.projects[i].platform = 'Javascript';
+            }
+        }
+
+        $scope.pr = data.projects;
+
+
+    }, function errorCallback(response) {
+        console.log('error :' + response);
+    });
+}
 
 
 function overview_weekly_error($scope, $http) {
@@ -22,8 +80,6 @@ function overview_weekly_error($scope, $http) {
         url: 'https://honeyqa.io:8080/project/1288/weekly_appruncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
-
-
 
 
         var init = {
@@ -72,6 +128,7 @@ function overview_weekly_error($scope, $http) {
                 duration: 3000,
                 step: function ( now, fx ) {
                     var r = $.map( init.data, function ( o ) {
+                        console.log(o[0], o[1], fx.pos);
                         return [[ o[0], o[1] * fx.pos ]];
                     });
                     plot.setData( [{ data: r }] );
@@ -884,6 +941,11 @@ angular
     .module('honeyqa')
     .controller('mainCtrl', mainCtrl)
     .controller('emailCtrl', emailCtrl)
+
+    .controller('project_list_profile', project_list_profile)
+
+    .controller('project_list_load_project', project_list_load_project)
+
     .controller('overview_weekly_error', overview_weekly_error)
     .controller('overview_most_session_app_ver', overview_most_session_app_ver)
     .controller('overview_most_error_app_ver', overview_most_error_app_ver)

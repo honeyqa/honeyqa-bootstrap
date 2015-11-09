@@ -59,7 +59,7 @@
 
 
 </head>
-<body>
+<body ng-controller="project_list_profile">
 
 <div id="theme-wrapper">
     <header class="navbar" id="header-navbar">
@@ -82,11 +82,11 @@
                 <section id="col-left">
                     <div>
                         <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown">
-                            <img alt="" src="img/scarlet-159.png" />
+                            <img alt="" ng-src={{profile_pic}} />
                             <div class="user-box">
                                 <span class="name">
                                     <a class="dropdown-toggle">
-                                        Name
+                                        {{nickname}}
                                         <!--<i class="fa fa-angle-down"></i>-->
                                     </a>
                                 </span>
