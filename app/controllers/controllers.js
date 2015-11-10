@@ -43,13 +43,9 @@ function project_list_load_project($scope, $http) {
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
-
         for(var i = 0; i < data.projects.length; i++) {
-            if(data.projects[i].platform == 0) {
+            if(data.projects[i].platform == 1) {
                 data.projects[i].platform = 'Android';
-            }
-            else if(data.projects[i].platform == 1) {
-                data.projects[i].platform = '두마에?';
             }
             else if(data.projects[i].platform == 2) {
                 data.projects[i].platform = 'iOS';
@@ -439,7 +435,7 @@ function insight_recommend_error_list($scope, $http, $location) {
             return 'label label-danger pull-left';
         }
         else if(rank == 'Major') {
-            return 'label label-primary pull-left';;
+            return 'label label-primary pull-left';
         }
         else if(rank == 'Minor') {
             return 'label label-primary pull-left';

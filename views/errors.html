@@ -13,6 +13,63 @@
     </div>
 </div>
 
+
+<div class="col-lg-12">
+    <div class="main-box clearfix">
+        <header class="main-box-header clearfix">
+            <h2 class="pull-left">Filters</h2>
+
+
+        </header>
+
+        <div class="main-box-body clearfix">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            Period
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" style="width:24%">All</button>
+                            <button type="button" class="btn btn-default" style="width:18%">Unhandled</button>
+                            <button type="button" class="btn btn-default" style="width:18%">Native</button>
+                            <button type="button" class="btn btn-default" style="width:18%">Critical</button>
+                            <button type="button" class="btn btn-default" style="width:18%">Major</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Rank
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" style="width:24%;">All</button>
+                            <button type="button" class="btn btn-default" style="width:14%;">Unhandled</button>
+                            <button type="button" class="btn btn-default" style="width:14%;">Native</button>
+                            <button type="button" class="btn btn-default" style="width:14%;">Critical</button>
+                            <button type="button" class="btn btn-default" style="width:14%;">Major</button>
+                            <button type="button" class="btn btn-default" style="width:14%;">Minor</button>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!--<ul class="pagination pull-right">-->
+            <!--<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>-->
+            <!--<li><a href="#">1</a></li>-->
+            <!--<li><a href="#">2</a></li>-->
+            <!--<li><a href="#">3</a></li>-->
+            <!--<li><a href="#">4</a></li>-->
+            <!--<li><a href="#">5</a></li>-->
+            <!--<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
+
+
 <div class="col-lg-12">
     <div class="main-box clearfix">
         <header class="main-box-header clearfix">
@@ -30,10 +87,10 @@
                         <th>Tags</th>
                     </tr>
                     </thead>
-                    <tbody ng-controller="insight_recommend_error_list ">
+                    <tbody ng-controller="insight_recommend_error_list">
                     <tr ng-repeat="error in errors">
                         <td ng-class="setting_css(error.rank)" style="font-size: 0.9em; color: #ffffff; min-width: 70px;">{{error.rank}}</td>
-                        <td>{{error.numofinstance}}</td>
+                        <td style="text-align: right;">{{error.numofinstance}}</td>
                         <td><a ng-click="insight_error_click_route(error.id)">{{error.errorname}}</a></td>
                         <td ng-repeat="t in error.tags">{{t.tag}}</td>
                     </tr>
