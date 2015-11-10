@@ -32,12 +32,11 @@
                     </thead>
                     <tbody ng-controller="insight_recommend_error_list">
                     <tr ng-repeat="error in errors">
-                        <td><a ng-click="insight_error_click_route(error.id)">{{error.rank}}</a></td>
+                        <td ng-class="setting_css(error.rank)" style="font-size: 0.9em; color: #ffffff; min-width: 70px;">{{error.rank}}</td>
                         <td>{{error.numofinstance}}</td>
-                        <td>{{error.errorname}}</td>
+                        <td><a ng-click="insight_error_click_route(error.id)">{{error.errorname}}</a></td>
                         <td ng-repeat="t in error.tags">{{t.tag}}</td>
                     </tr>
-
 
                     </tbody>
                 </table>

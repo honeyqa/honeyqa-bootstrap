@@ -396,17 +396,54 @@ function insight_recommend_error_list($scope, $http, $location) {
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
+
+        for(var i = 0; i < data.errors.length; i++) {
+            if(data.errors[i].rank == 0) {
+                data.errors[i].rank = 'Unhandle';
+            }
+            else if(data.errors[i].rank == 1) {
+                data.errors[i].rank = 'Native';
+            }
+            else if(data.errors[i].rank == 2) {
+                data.errors[i].rank = 'Critical';
+            }
+            else if(data.errors[i].rank == 3) {
+                data.errors[i].rank = 'Major';
+            }
+            else if(data.errors[i].rank == 4) {
+                data.errors[i].rank = 'Minor';
+            }
+        }
+
         $scope.errors = data.errors;
+
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
 
     $scope.insight_error_click_route = function(error_id){
-        //console.log("error_id : " + error_id);
         var detail_path = '/detail/' + error_id;
-        //console.log("detail_path : " + detail_path);
         $location.path(detail_path);
+    }
+
+
+    $scope.setting_css = function(rank) {
+        if(rank == 'Unhandle') {
+            return 'label label-warning pull-left';
+        }
+        else if(rank == 'Native') {
+            return 'label label-success pull-left';
+        }
+        else if(rank == 'Critical') {
+            return 'label label-danger pull-left';
+        }
+        else if(rank == 'Major') {
+            return 'label label-primary pull-left';
+        }
+        else if(rank == 'Minor') {
+            return 'label label-primary pull-left';
+        }
     }
 }
 
@@ -949,6 +986,7 @@ function proguardList($scope, $http) {
 
 function dsymList($scope, $http) {
 }
+
 angular
     .module('honeyqa')
     .controller('mainCtrl', mainCtrl)
