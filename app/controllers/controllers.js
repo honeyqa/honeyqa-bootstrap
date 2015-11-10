@@ -439,7 +439,7 @@ function insight_recommend_error_list($scope, $http, $location) {
             return 'label label-danger pull-left';
         }
         else if(rank == 'Major') {
-            return 'label label-primary pull-left';
+            return 'label label-primary pull-left';;
         }
         else if(rank == 'Minor') {
             return 'label label-primary pull-left';
