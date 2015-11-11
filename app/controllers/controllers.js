@@ -406,6 +406,7 @@ angular
     .controller('errors_filter_list', errors_filter_list)
     .controller('insight_recommend_error_list', insight_recommend_error_list)
     .controller('error_detail_load', error_detail_load)
+    .controller('toggle_test', toggle_test)
     //.controller('dashboardFlotCtrl', dashboardFlotCtrl)
     //.controller('insight_donut', insight_donut)
     //.controller('insight_error_list', insight_error_list)
@@ -421,12 +422,18 @@ angular
     //.controller('proguardList', proguardList)
     //.controller('dsymList', dsymList)
 
-
+function toggle_test($scope) {
+    $scope.system = {message: "hello"};
+    $scope.state = true;
+    $scope.toggle = function(){
+        $scope.state = !$scope.state;
+    }
+}
 
 function errors_filter_list($scope, $http) {
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/filters'
+        url: 'https://honeyqa.io:8080/project/1288/filters2'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
@@ -441,15 +448,15 @@ function errors_filter_list($scope, $http) {
         }
         else { $scope.app_filter_second = data.filter_appversions[1].appversion; }
 
-        //if(data.filter_appversions[2].appversion == '0') {
-        //    $scope.app_filter_third = '3';
-        //}
-        //else { $scope.app_filter_third = data.filter_appversions[2].appversion; }
-        //
-        //if(data.filter_appversions[3].appversion == '0') {
-        //    $scope.app_filter_fourth = '4';
-        //}
-        //else { $scope.app_filter_fourth = data.filter_appversions[3].appversion; }
+        if(data.filter_appversions[2].appversion == '0') {
+            $scope.app_filter_third = '3';
+        }
+        else { $scope.app_filter_third = data.filter_appversions[2].appversion; }
+
+        if(data.filter_appversions[3].appversion == '0') {
+            $scope.app_filter_fourth = '4';
+        }
+        else { $scope.app_filter_fourth = data.filter_appversions[3].appversion; }
 
         //$scope.app_filter_first_width = '300px';
 
@@ -465,15 +472,15 @@ function errors_filter_list($scope, $http) {
         }
         else { $scope.device_filter_second = data.filter_devices[1].device; }
 
-        //if(data.filter_devices[2].device == '0') {
-        //    $scope.device_filter_third = '3';
-        //}
-        //else { $scope.device_filter_third = data.filter_devices[2].device; }
-        //
-        //if(data.filter_devices[3].device == '0') {
-        //    $scope.device_filter_fourth = '4';
-        //}
-        //else { $scope.device_filter_fourth = data.filter_devices[3].device; }
+        if(data.filter_devices[2].device == '0') {
+            $scope.device_filter_third = '3';
+        }
+        else { $scope.device_filter_third = data.filter_devices[2].device; }
+
+        if(data.filter_devices[3].device == '0') {
+            $scope.device_filter_fourth = '4';
+        }
+        else { $scope.device_filter_fourth = data.filter_devices[3].device; }
 
 
 
@@ -488,16 +495,15 @@ function errors_filter_list($scope, $http) {
         }
         else { $scope.sdk_filter_second = data.filter_sdkversions[1].osversion; }
 
-        //if(data.filter_sdkversions[2].osversion == '0') {
-        //    $scope.sdk_filter_third = '3';
-        //}
-        //else { $scope.sdk_filter_third = data.filter_sdkversions[2].osversion; }
-        //
-        //if(data.filter_sdkversions[3].osversion == '0') {
-        //    $scope.sdk_filter_fourth = '4';
-        //}
-        //else { $scope.sdk_filter_fourth = data.filter_sdkversions[3].osversion; }
+        if(data.filter_sdkversions[2].osversion == '0') {
+            $scope.sdk_filter_third = '3';
+        }
+        else { $scope.sdk_filter_third = data.filter_sdkversions[2].osversion; }
 
+        if(data.filter_sdkversions[3].osversion == '0') {
+            $scope.sdk_filter_fourth = '4';
+        }
+        else { $scope.sdk_filter_fourth = data.filter_sdkversions[3].osversion; }
 
 
         //Country
@@ -511,15 +517,48 @@ function errors_filter_list($scope, $http) {
         }
         else { $scope.country_filter_second = data.filter_countries[1].country; }
 
-        //if(data.filter_countries[2].country == '0') {
-        //    $scope.country_filter_third = '3';
-        //}
-        //else { $scope.country_filter_third = data.filter_countries[2].country; }
-        //
-        //if(data.filter_countries[3].country == '0') {
-        //    $scope.country_filter_fourth = '4';
-        //}
-        //else { $scope.country_filter_fourth = data.filter_countries[3].country; }
+        if(data.filter_countries[2].country == '0') {
+            $scope.country_filter_third = '3';
+        }
+        else { $scope.country_filter_third = data.filter_countries[2].country; }
+
+        if(data.filter_countries[3].country == '0') {
+            $scope.country_filter_fourth = '4';
+        }
+        else { $scope.country_filter_fourth = data.filter_countries[3].country; }
+
+        // category
+        // 0 : Period
+        // 1 : Rank
+        // 2 : App version
+        // 3 : Device
+        // 4 : SDK Level
+        // 5 : Country
+
+        var filterQuery;
+
+        $scope.set_filter = function (category, value) {
+            if(category == 0) {
+                console.log('Period : ' + value);
+            }
+            else if(category == 1) {
+                console.log('Rank : ' + value);
+            }
+            else if(category == 2) {
+                console.log('Appversion : ' + value);
+            }
+            else if(category == 3) {
+                console.log('Device : ' + value);
+            }
+            else if(category == 4) {
+                console.log('SDK Level : ' + value);
+            }
+            else if(category == 5) {
+                console.log('Coountry : ' + value);
+            }
+        }
+
+
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
