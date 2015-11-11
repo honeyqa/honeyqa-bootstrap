@@ -2,6 +2,12 @@
  * Created by NE_LEADER on 2015. 10. 5..
  */
 
+angular
+    .module('honeyqa')
+    .controller('mainCtrl', mainCtrl)
+    .controller('emailCtrl', emailCtrl)
+
+
 
 function mainCtrl($scope) {
     //$('#page-wrapper').removeClass('nav-small');
@@ -13,6 +19,10 @@ function emailCtrl($scope) {
     }
 }
 
+angular
+    .module('honeyqa')
+    .controller('project_list_profile', project_list_profile)
+    .controller('project_list_load_project', project_list_load_project)
 
 function project_list_profile($scope, $http) {
     $http({
@@ -34,7 +44,6 @@ function project_list_profile($scope, $http) {
         console.log('error :' + response);
     });
 }
-
 
 function project_list_load_project($scope, $http) {
     $http({
@@ -60,15 +69,23 @@ function project_list_load_project($scope, $http) {
                 data.projects[i].platform = 'Javascript';
             }
         }
-
         $scope.pr = data.projects;
-
 
     }, function errorCallback(response) {
         console.log('error :' + response);
     });
 }
 
+
+angular
+    .module('honeyqa')
+    .controller('overview_weekly_error', overview_weekly_error)
+    .controller('overview_most_session_app_ver', overview_most_session_app_ver)
+    .controller('overview_most_error_app_ver', overview_most_error_app_ver)
+    .controller('overview_most_error_device', overview_most_error_device)
+    .controller('overview_most_error_sdk', overview_most_error_sdk)
+    .controller('overview_most_error_country', overview_most_error_country)
+    .controller('overview_most_error_class', overview_most_error_class)
 
 function overview_weekly_error($scope, $http) {
     $http({
@@ -153,16 +170,21 @@ function overview_weekly_error($scope, $http) {
 
 function overview_most_session_app_ver($scope, $http) {
 
-    var counting;
+    var counting = 0;
     var total;
 
     $http({
         method: 'GET',
         url: 'https://honeyqa.io:8080/project/1288/most/sessionbyappver'
     }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data))
-        counting = data.count;
-        $scope.appversion = data.appversion;
+        var data = JSON.parse(JSON.stringify(response.data));
+        if(data.count != '0')
+            counting = data.count;
+
+        if(data.appversion != 'unknown')
+            $scope.appversion = data.appversion;
+        else
+            $scope.appversion = 'No Data';
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -179,7 +201,6 @@ function overview_most_session_app_ver($scope, $http) {
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
-
 
     $scope.options = {
         barColor: '#8bc34a',
@@ -218,9 +239,8 @@ function overview_most_error_app_ver($scope, $http) {
         method: 'GET',
         url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
     }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data))
+        var data = JSON.parse(JSON.stringify(response.data));
         total = data.weekly_instancecount;
-
 
         $scope.percent = parseInt((counting / total) * 100);
 
@@ -249,8 +269,7 @@ function overview_most_error_device($scope, $http) {
         method: 'GET',
         url: 'https://honeyqa.io:8080/project/1288/most/errorbydevice'
     }).then(function successCallback(response) {
-        var data = JSON.parse(JSON.stringify(response.data))
-
+        var data = JSON.parse(JSON.stringify(response.data));
 
         $scope.device_name = data.device;
         counting = data.count;
@@ -280,7 +299,6 @@ function overview_most_error_sdk($scope, $http) {
         url: 'https://honeyqa.io:8080/project/1288/most/errorbysdkversion'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
-
 
         $scope.sdk_level = data.osversion;
         counting = data.count;
@@ -366,10 +384,6 @@ function overview_most_error_class($scope, $http) {
     });
 }
 
-
-
-
-
 function insight_donut($scope) {
     graphDonut = Morris.Donut({
         element: 'hero-donut',
@@ -386,8 +400,30 @@ function insight_donut($scope) {
 }
 
 
-function insight_filter_list($scope, $http) {
 
+angular
+    .module('honeyqa')
+    .controller('errors_filter_list', errors_filter_list)
+    .controller('insight_recommend_error_list', insight_recommend_error_list)
+    .controller('error_detail_load', error_detail_load)
+    //.controller('dashboardFlotCtrl', dashboardFlotCtrl)
+    //.controller('insight_donut', insight_donut)
+    //.controller('insight_error_list', insight_error_list)
+    //.controller('appver_session_graph', appver_session_graph)
+    //.controller('appver_error_graph', appver_error_graph)
+    //.controller('device_range', device_range)
+    //.controller('device_rate_bar', device_rate_bar)
+    //.controller('device_morris_circle', device_morris_circle)
+    //.controller('sdk_flot_donut', sdk_flot_donut)
+    //.controller('sdk_flot_bar', sdk_flot_bar)
+    //.controller('country_map', country_map)
+    //.controller('class_flot_donut', class_flot_donut)
+    //.controller('proguardList', proguardList)
+    //.controller('dsymList', dsymList)
+
+
+
+function errors_filter_list($scope, $http) {
     $http({
         method: 'GET',
         url: 'https://honeyqa.io:8080/project/1288/filters'
@@ -419,16 +455,16 @@ function insight_filter_list($scope, $http) {
 
 
         // DEVICE
-        //if(data.filter_devices[0].device == '0') {
-        //    $scope.device_filter_first = '';
-        //}
-        //else { $scope.device_filter_first = data.filter_devices[0].device; }
-        //
-        //if(data.filter_devices[1].device == '0') {
-        //    $scope.device_filter_second = '';
-        //}
-        //else { $scope.device_filter_second = data.filter_devices[1].device; }
-        //
+        if(data.filter_devices[0].device == '0') {
+            $scope.device_filter_first = '';
+        }
+        else { $scope.device_filter_first = data.filter_devices[0].device; }
+
+        if(data.filter_devices[1].device == '0') {
+            $scope.device_filter_second = '';
+        }
+        else { $scope.device_filter_second = data.filter_devices[1].device; }
+
         //if(data.filter_devices[2].device == '0') {
         //    $scope.device_filter_third = '3';
         //}
@@ -486,18 +522,11 @@ function insight_filter_list($scope, $http) {
         //else { $scope.country_filter_fourth = data.filter_countries[3].country; }
 
     }, function errorCallback(response) {
-            console.log('error : ' + response);
+        console.log('error : ' + response);
     });
-
-
-
-
-    //ng-style=" { 'width' : width }"
-
-
-    //https://honeyqa.io:8080/project/1288/filters
-
 }
+
+
 
 function insight_recommend_error_list($scope, $http, $location) {
     $http({
@@ -625,7 +654,7 @@ function error_detail_load($scope, $http, $routeParams) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/error/891841/statistics'
+        url: 'https://honeyqa.io:8080/error/' +  + errorid + '/statistics'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
@@ -684,7 +713,7 @@ function error_detail_load($scope, $http, $routeParams) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/error/891841/instances'
+        url: 'https://honeyqa.io:8080/error/' +  + errorid + '/instances'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
@@ -1097,37 +1126,37 @@ function proguardList($scope, $http) {
 function dsymList($scope, $http) {
 }
 
-angular
-    .module('honeyqa')
-    .controller('mainCtrl', mainCtrl)
-    .controller('emailCtrl', emailCtrl)
-
-    .controller('project_list_profile', project_list_profile)
-    .controller('project_list_load_project', project_list_load_project)
-
-    .controller('overview_weekly_error', overview_weekly_error)
-    .controller('overview_most_session_app_ver', overview_most_session_app_ver)
-    .controller('overview_most_error_app_ver', overview_most_error_app_ver)
-    .controller('overview_most_error_device', overview_most_error_device)
-    .controller('overview_most_error_sdk', overview_most_error_sdk)
-    .controller('overview_most_error_country', overview_most_error_country)
-    .controller('overview_most_error_class', overview_most_error_class)
-
-    .controller('insight_filter_list', insight_filter_list)
-    .controller('insight_recommend_error_list', insight_recommend_error_list)
-    .controller('error_detail_load', error_detail_load)
-
-    .controller('dashboardFlotCtrl', dashboardFlotCtrl)
-    .controller('insight_donut', insight_donut)
-    .controller('insight_error_list', insight_error_list)
-    .controller('appver_session_graph', appver_session_graph)
-    .controller('appver_error_graph', appver_error_graph)
-    .controller('device_range', device_range)
-    .controller('device_rate_bar', device_rate_bar)
-    .controller('device_morris_circle', device_morris_circle)
-    .controller('sdk_flot_donut', sdk_flot_donut)
-    .controller('sdk_flot_bar', sdk_flot_bar)
-    .controller('country_map', country_map)
-    .controller('class_flot_donut', class_flot_donut)
-    .controller('proguardList', proguardList)
-    .controller('dsymList', dsymList)
+//angular
+//    .module('honeyqa')
+//    .controller('mainCtrl', mainCtrl)
+//    .controller('emailCtrl', emailCtrl)
+//
+//    .controller('project_list_profile', project_list_profile)
+//    .controller('project_list_load_project', project_list_load_project)
+//
+//    .controller('overview_weekly_error', overview_weekly_error)
+//    .controller('overview_most_session_app_ver', overview_most_session_app_ver)
+//    .controller('overview_most_error_app_ver', overview_most_error_app_ver)
+//    .controller('overview_most_error_device', overview_most_error_device)
+//    .controller('overview_most_error_sdk', overview_most_error_sdk)
+//    .controller('overview_most_error_country', overview_most_error_country)
+//    .controller('overview_most_error_class', overview_most_error_class)
+//
+//    .controller('insight_filter_list', insight_filter_list)
+//    .controller('insight_recommend_error_list', insight_recommend_error_list)
+//    .controller('error_detail_load', error_detail_load)
+//
+//    .controller('dashboardFlotCtrl', dashboardFlotCtrl)
+//    .controller('insight_donut', insight_donut)
+//    .controller('insight_error_list', insight_error_list)
+//    .controller('appver_session_graph', appver_session_graph)
+//    .controller('appver_error_graph', appver_error_graph)
+//    .controller('device_range', device_range)
+//    .controller('device_rate_bar', device_rate_bar)
+//    .controller('device_morris_circle', device_morris_circle)
+//    .controller('sdk_flot_donut', sdk_flot_donut)
+//    .controller('sdk_flot_bar', sdk_flot_bar)
+//    .controller('country_map', country_map)
+//    .controller('class_flot_donut', class_flot_donut)
+//    .controller('proguardList', proguardList)
+//    .controller('dsymList', dsymList)
