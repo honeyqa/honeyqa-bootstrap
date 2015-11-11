@@ -560,6 +560,12 @@ function errors_filter_list($scope, $http) {
 
 
 
+        $scope.filter_toggle_all = function() {
+            return 'btn btn-danger';
+        }
+
+
+
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
