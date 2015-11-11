@@ -385,6 +385,120 @@ function insight_donut($scope) {
     });
 }
 
+
+function insight_filter_list($scope, $http) {
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/project/1288/filters'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+
+        if(data.filter_appversions[0].appversion == '0') {
+            $scope.app_filter_first = '';
+        }
+        else { $scope.app_filter_first = data.filter_appversions[0].appversion; }
+
+        if(data.filter_appversions[1].appversion == '0') {
+            $scope.app_filter_second = '';
+        }
+        else { $scope.app_filter_second = data.filter_appversions[1].appversion; }
+
+        //if(data.filter_appversions[2].appversion == '0') {
+        //    $scope.app_filter_third = '3';
+        //}
+        //else { $scope.app_filter_third = data.filter_appversions[2].appversion; }
+        //
+        //if(data.filter_appversions[3].appversion == '0') {
+        //    $scope.app_filter_fourth = '4';
+        //}
+        //else { $scope.app_filter_fourth = data.filter_appversions[3].appversion; }
+
+        //$scope.app_filter_first_width = '300px';
+
+
+        // DEVICE
+        //if(data.filter_devices[0].device == '0') {
+        //    $scope.device_filter_first = '';
+        //}
+        //else { $scope.device_filter_first = data.filter_devices[0].device; }
+        //
+        //if(data.filter_devices[1].device == '0') {
+        //    $scope.device_filter_second = '';
+        //}
+        //else { $scope.device_filter_second = data.filter_devices[1].device; }
+        //
+        //if(data.filter_devices[2].device == '0') {
+        //    $scope.device_filter_third = '3';
+        //}
+        //else { $scope.device_filter_third = data.filter_devices[2].device; }
+        //
+        //if(data.filter_devices[3].device == '0') {
+        //    $scope.device_filter_fourth = '4';
+        //}
+        //else { $scope.device_filter_fourth = data.filter_devices[3].device; }
+
+
+
+        //SDK LEVEL
+        if(data.filter_sdkversions[0].osversion == '0') {
+            $scope.sdk_filter_first = '';
+        }
+        else { $scope.sdk_filter_first = data.filter_sdkversions[0].osversion; }
+
+        if(data.filter_sdkversions[1].osversion == '0') {
+            $scope.sdk_filter_second = '';
+        }
+        else { $scope.sdk_filter_second = data.filter_sdkversions[1].osversion; }
+
+        //if(data.filter_sdkversions[2].osversion == '0') {
+        //    $scope.sdk_filter_third = '3';
+        //}
+        //else { $scope.sdk_filter_third = data.filter_sdkversions[2].osversion; }
+        //
+        //if(data.filter_sdkversions[3].osversion == '0') {
+        //    $scope.sdk_filter_fourth = '4';
+        //}
+        //else { $scope.sdk_filter_fourth = data.filter_sdkversions[3].osversion; }
+
+
+
+        //Country
+        if(data.filter_countries[0].country == '0') {
+            $scope.country_filter_first = '';
+        }
+        else { $scope.country_filter_first = data.filter_countries[0].country; }
+
+        if(data.filter_countries[1].country == '0') {
+            $scope.country_filter_second = '';
+        }
+        else { $scope.country_filter_second = data.filter_countries[1].country; }
+
+        //if(data.filter_countries[2].country == '0') {
+        //    $scope.country_filter_third = '3';
+        //}
+        //else { $scope.country_filter_third = data.filter_countries[2].country; }
+        //
+        //if(data.filter_countries[3].country == '0') {
+        //    $scope.country_filter_fourth = '4';
+        //}
+        //else { $scope.country_filter_fourth = data.filter_countries[3].country; }
+
+    }, function errorCallback(response) {
+            console.log('error : ' + response);
+    });
+
+
+
+
+    //ng-style=" { 'width' : width }"
+
+
+    //https://honeyqa.io:8080/project/1288/filters
+
+}
+
 function insight_recommend_error_list($scope, $http, $location) {
     $http({
         method: 'GET',
@@ -989,7 +1103,6 @@ angular
     .controller('emailCtrl', emailCtrl)
 
     .controller('project_list_profile', project_list_profile)
-
     .controller('project_list_load_project', project_list_load_project)
 
     .controller('overview_weekly_error', overview_weekly_error)
@@ -999,6 +1112,8 @@ angular
     .controller('overview_most_error_sdk', overview_most_error_sdk)
     .controller('overview_most_error_country', overview_most_error_country)
     .controller('overview_most_error_class', overview_most_error_class)
+
+    .controller('insight_filter_list', insight_filter_list)
     .controller('insight_recommend_error_list', insight_recommend_error_list)
     .controller('error_detail_load', error_detail_load)
 
