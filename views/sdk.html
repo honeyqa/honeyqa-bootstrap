@@ -15,33 +15,64 @@
             </div>
         </div>
     </div>
+</div>
 
-    <h3><span>Retention</span></h3>
-    <div class="slider-range" ng-controller="device_range"></div>
-    <span class="slider-label"></span>
 
-    <div class="col-lg-12">
-        <div class="main-box">
-            <header class="main-box-header clearfix">
-                <h2>Error Rate by SDK Level</h2>
-            </header>
+<div class="col-lg-12">
+    <div class="main-box clearfix">
+        <header class="main-box-header clearfix">
+            <h2 class="pull-left">Period</h2>
+        </header>
 
-            <div class="main-box-body clearfix" ng-controller="sdk_flot_donut">
-                <div id="graph-flot-donut" style="height: 400px; padding: 0px; position: relative;"></div>
+        <div class="main-box-body clearfix">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div style="width:100%">
+                        <div style="width: 19.5%; display: inline-block;">
+                            <button type="button" class="btn btn-danger" style="width:100%">All</button>
+                        </div>
+                        <div style="width: 19.5%; display: inline-block;">
+                            <button type="button" class="btn btn-default" style="width:100%">1 Day</button>
+                        </div>
+                        <div style="width: 19.5%; display: inline-block;">
+                            <button type="button" class="btn btn-default" style="width:100%">1 Week</button>
+                        </div>
+                        <div style="width: 19.5%; display: inline-block;">
+                            <button type="button" class="btn btn-default" style="width:100%">14 Days</button>
+                        </div>
+                        <div style="width: 19.5%; display: inline-block;">
+                            <button type="button" class="btn btn-default" style="width:100%">1 Month</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-lg-12">
-        <div class="main-box">
-            <header class="main-box-header clearfix">
-                <h2>Error Count by SDK Level</h2>
-            </header>
 
-            <div class="main-box-body clearfix" ng-controller="sdk_flot_bar">
-                <div id="sdk-flot-bar"></div>
-            </div>
+<div class="col-lg-12">
+    <div class="main-box">
+        <header class="main-box-header clearfix">
+            <h2>Error Rate by SDK Level</h2>
+        </header>
+
+        <div class="main-box-body clearfix" ng-controller="statistic_sdk_error_rating">
+            <div id="statistic_sdk_error_rate" style="height: 400px; padding: 0px; position: relative;"></div>
         </div>
     </div>
+</div>
 
+
+
+<div class="col-lg-12">
+    <div class="main-box">
+        <header class="main-box-header clearfix">
+            <h2>Error Count by SDK Level</h2>
+        </header>
+
+        <div class="main-box-body clearfix" ng-controller="statistic_sdk_error_counting">
+            <div id="sdk-flot-bar"></div>
+        </div>
+    </div>
 </div>

@@ -1114,6 +1114,140 @@ function statistic_device_circle_repeat($scope, $http) {
 }
 
 
+angular
+    .module('honeyqa')
+    .controller('statistic_sdk_error_rating', statistic_sdk_error_rating)
+    .controller('statistic_sdk_error_counting', statistic_sdk_error_counting)
+
+
+function statistic_sdk_error_rating($scope, $http) {
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/osversion'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        var porting = [];
+
+        for(var i = 0; i < data.length / 2; i++) {
+            porting.push({
+                label : data[i].osversion,
+                data : data[i].count
+            })
+        }
+
+        var others_count = 0;
+        for(var i = data.length / 2; i < data.length; i++) {
+            others_count += data[i].count;
+        }
+        porting.push({
+            label : 'others',
+            data : others_count
+        })
+
+        if ($('#statistic_sdk_error_rate').length) {
+
+            var dataDonut = porting;
+
+            $.plot('#statistic_sdk_error_rate', dataDonut, {
+                series: {
+                    pie: {
+                        show: true,
+                        innerRadius: 0.5,
+                        label: {
+                            show: true,
+                        }
+                    }
+                },
+                colors: ['#e84e40', '#ffc107', '#8bc34a', '#03a9f4', '#9c27b0', '#90a4ae'],
+                legend: {
+                    show: false,
+                }
+            });
+        }
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+
+function statistic_sdk_error_counting($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/osversion_rank'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        console.log(data);
+
+        console.log('length : ' + data.length);
+
+
+        console.log('data[0].osversion : ' + data[0].osversion);
+
+        //Rank [ 0: Unhandle, 1: Native, 2: Critical, 3: Major, 4: Minor ]
+
+
+        var porting = [];
+        for(var i = 0; i < data.length; i++) {
+            var temp_osversion = data[i].osversion;
+            var rank_value = new Array(5);
+            for(var k = 0; k < 5; k++) {
+                rank_value[k] = 0;
+            }
+            for(var j = i; j < data.length; j++) {
+                if(temp_osversion != data[j].osversion) {
+                    i = j;
+                    break;
+                }
+
+                if(data[j].rank == 0) { //Unhandle
+                    rank_value[0] += data[j].rank_count;
+                }
+                else if(data[j].rank == 1) { //Native
+                    rank_value[1] += data[j].rank_count;
+                }
+                else if(data[j].rank == 2) { //Critical
+                    rank_value[2] += data[j].rank_count;
+                }
+                else if(data[j].rank == 3) { //Major
+                    rank_value[3] += data[j].rank_count;
+                }
+                else if(data[j].rank == 4) { //Minor
+                    rank_value[4] += data[j].rank_count;
+                }
+            }
+
+            porting.push({
+                SDK : temp_osversion,
+                Unhandle : rank_value[0],
+                Native : rank_value[1],
+                Critical : rank_value[2],
+                Major : rank_value[3],
+                Minor : rank_value[4]
+            });
+
+        }
+
+        graphBar = Morris.Bar({
+            element: 'sdk-flot-bar',
+            data : porting,
+            barColors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            xkey: 'SDK',
+            ykeys: ['Unhandle', 'Native', 'Critical', 'Major', 'Minor' ],
+            labels: ['Unhandle', 'Native', 'Critical', 'Major', 'Minor' ],
+            resize: true
+        });
+
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+
 
 function dashboardFlotCtrl($scope) {
     var data1 = [
