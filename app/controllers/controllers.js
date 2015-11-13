@@ -168,7 +168,6 @@ function overview_weekly_error($scope, $http) {
 }
 
 function overview_most_session_app_ver($scope, $http) {
-
     var counting = 0;
     var total;
 
@@ -1042,7 +1041,6 @@ angular
     .module('honeyqa')
     .controller('statistic_device_error_rating', statistic_device_error_rating)
     .controller('statistic_device_circle_repeat', statistic_device_circle_repeat)
-    .controller('statistic_device_circle', statistic_device_circle)
 
 
 function statistic_device_error_rating($scope, $http) {
@@ -1075,77 +1073,44 @@ function statistic_device_error_rating($scope, $http) {
 }
 
 function statistic_device_circle_repeat($scope, $http) {
+
+    var total = 0;
+
     $http({
         method: 'GET',
         url: 'https://honeyqa.io:8080/statistics/720/device'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
+
+        for(var i = 0; i < data.length; i++) {
+            total += data[i].count;
+        }
+        $scope.total = total;
+
+        for(var i = 0; i < data.length; i++) {
+            data[i].count = parseInt((data[i].count / total) * 100);
+        }
         $scope.circle = data;
+
+
+        console.log(total);
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
-}
 
-function statistic_device_circle($scope, $http) {
-
-        $(".knob").knob({
-            readOnly : true,
-            change : function (value) {
-                console.log("change : " + value);
-            },
-            release : function (value) {
-                //console.log(this.$.attr('value'));
-                console.log("release : " + value);
-            },
-            cancel : function () {
-                console.log("cancel : ", this);
-            },
-            draw : function () {
-
-                // "tron" case
-                if(this.$.data('skin') == 'tron') {
-
-                    var a = this.angle(this.cv)  // Angle
-                        , sa = this.startAngle		  // Previous start angle
-                        , sat = this.startAngle		 // Start angle
-                        , ea							// Previous end angle
-                        , eat = sat + a				 // End angle
-                        , r = 1;
-
-                    this.g.lineWidth = this.lineWidth;
-
-                    //this.o.cursor
-                    //&& (sat = eat - 0.3)
-                    //&& (eat = eat + 0.3);
-
-                    //if (this.o.displayPrevious) {
-                    //    ea = this.startAngle + this.angle(this.v);
-                    //    this.o.cursor
-                    //    && (sa = ea - 0.3)
-                    //    && (ea = ea + 0.3);
-                    //    this.g.beginPath();
-                    //    this.g.strokeStyle = this.pColor;
-                    //    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                    //    this.g.stroke();
-                    //}
-
-                    this.g.beginPath();
-                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                    this.g.stroke();
-
-                    this.g.lineWidth = 2;
-                    this.g.beginPath();
-                    this.g.strokeStyle = this.o.fgColor;
-                    this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                    this.g.stroke();
-                    return false;
-                }
-            }
-        });
-
+    $scope.options = {
+        barColor: '#8bc34a',
+        trackColor: '#f2f2f2',
+        scaleColor: false,
+        lineWidth: 8,
+        size: 130,
+        animate: 1500,
+        onStep: function(from, to, percent) {
+            $(this.el).find('.percent').text(Math.round(percent));
+        }
+    };
 }
 
 
