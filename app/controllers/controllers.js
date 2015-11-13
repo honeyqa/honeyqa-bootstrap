@@ -90,10 +90,9 @@ angular
 function overview_weekly_error($scope, $http) {
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_appruncount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_appruncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
-
 
         for(var i = 0; i < data.weekly.length; i++) {
             var temp = data.weekly[i].date + "";
@@ -175,7 +174,7 @@ function overview_most_session_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/sessionbyappver'
+        url: 'https://honeyqa.io:8080/project/720/most/sessionbyappver'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
         if(data.count != '0')
@@ -192,11 +191,13 @@ function overview_most_session_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_sessioncount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_sessioncount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
         total = data.weekly_sessioncount;
         $scope.percent = parseInt((counting / total) * 100);
+        if(isNaN($scope.percent))
+            $scope.percent = 0;
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -222,7 +223,7 @@ function overview_most_error_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/errorbyappver'
+        url: 'https://honeyqa.io:8080/project/720/most/errorbyappver'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -237,7 +238,7 @@ function overview_most_error_app_ver($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
         total = data.weekly_instancecount;
@@ -267,7 +268,7 @@ function overview_most_error_device($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/errorbydevice'
+        url: 'https://honeyqa.io:8080/project/720/most/errorbydevice'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
@@ -281,7 +282,7 @@ function overview_most_error_device($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
         $scope.width = parseInt((counting / data.weekly_instancecount) * 100) + '%';
@@ -296,7 +297,7 @@ function overview_most_error_sdk($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/errorbysdkversion'
+        url: 'https://honeyqa.io:8080/project/720/most/errorbysdkversion'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -310,7 +311,7 @@ function overview_most_error_sdk($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -326,7 +327,7 @@ function overview_most_error_country($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/errorbycountry'
+        url: 'https://honeyqa.io:8080/project/720/most/errorbycountry'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -341,7 +342,7 @@ function overview_most_error_country($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -358,12 +359,15 @@ function overview_most_error_class($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/most/errorbyclassname'
+        url: 'https://honeyqa.io:8080/project/720/most/errorbyclassname'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
-
-        $scope.class_name = data.lastactivity;
+        if(data.lastactivity == '') {
+            $scope.class_name = 'unknown class';
+        }
+        else
+            $scope.class_name = data.lastactivity;
         counting = data.count;
         $scope.class_count = data.count;
 
@@ -373,7 +377,7 @@ function overview_most_error_class($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/weekly_errorcount'
+        url: 'https://honeyqa.io:8080/project/720/weekly_errorcount'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data))
 
@@ -384,67 +388,28 @@ function overview_most_error_class($scope, $http) {
     });
 }
 
-function insight_donut($scope) {
-    graphDonut = Morris.Donut({
-        element: 'hero-donut',
-        data: [
-            {label: 'Unhandled', value: 25 },
-            {label: 'Critical', value: 40 },
-            {label: 'Native', value: 25 },
-            {label: 'etc', value: 10 }
-        ],
-        colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
-        formatter: function (y) { return y + "%" },
-        resize: true
-    });
-}
-
-
 
 angular
     .module('honeyqa')
     .controller('errors_filter_list', errors_filter_list)
-    .controller('insight_recommend_error_list', insight_recommend_error_list)
-    .controller('error_detail_load', error_detail_load)
-    .controller('toggle_test', toggle_test)
-    //.controller('dashboardFlotCtrl', dashboardFlotCtrl)
-    //.controller('insight_donut', insight_donut)
-    //.controller('insight_error_list', insight_error_list)
-    //.controller('appver_session_graph', appver_session_graph)
-    //.controller('appver_error_graph', appver_error_graph)
-    //.controller('device_range', device_range)
-    //.controller('device_rate_bar', device_rate_bar)
-    //.controller('device_morris_circle', device_morris_circle)
-    //.controller('sdk_flot_donut', sdk_flot_donut)
-    //.controller('sdk_flot_bar', sdk_flot_bar)
-    //.controller('country_map', country_map)
-    //.controller('class_flot_donut', class_flot_donut)
-    //.controller('proguardList', proguardList)
-    //.controller('dsymList', dsymList)
+    .controller('errors_recommend_error_list', errors_recommend_error_list)
 
-function toggle_test($scope) {
-    $scope.system = {message: "hello"};
-    $scope.state = true;
-    $scope.toggle = function(){
-        $scope.state = !$scope.state;
-    }
-}
 
 function errors_filter_list($scope, $http) {
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/1288/filters2'
+        url: 'https://honeyqa.io:8080/project/720/filters2'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
 
         if(data.filter_appversions[0].appversion == '0') {
-            $scope.app_filter_first = '';
+            $scope.app_filter_first = '1';
         }
         else { $scope.app_filter_first = data.filter_appversions[0].appversion; }
 
         if(data.filter_appversions[1].appversion == '0') {
-            $scope.app_filter_second = '';
+            $scope.app_filter_second = '2';
         }
         else { $scope.app_filter_second = data.filter_appversions[1].appversion; }
 
@@ -463,12 +428,12 @@ function errors_filter_list($scope, $http) {
 
         // DEVICE
         if(data.filter_devices[0].device == '0') {
-            $scope.device_filter_first = '';
+            $scope.device_filter_first = '1';
         }
         else { $scope.device_filter_first = data.filter_devices[0].device; }
 
         if(data.filter_devices[1].device == '0') {
-            $scope.device_filter_second = '';
+            $scope.device_filter_second = '2';
         }
         else { $scope.device_filter_second = data.filter_devices[1].device; }
 
@@ -508,12 +473,12 @@ function errors_filter_list($scope, $http) {
 
         //Country
         if(data.filter_countries[0].country == '0') {
-            $scope.country_filter_first = '';
+            $scope.country_filter_first = '1';
         }
         else { $scope.country_filter_first = data.filter_countries[0].country; }
 
         if(data.filter_countries[1].country == '0') {
-            $scope.country_filter_second = '';
+            $scope.country_filter_second = '2';
         }
         else { $scope.country_filter_second = data.filter_countries[1].country; }
 
@@ -535,36 +500,215 @@ function errors_filter_list($scope, $http) {
         // 4 : SDK Level
         // 5 : Country
 
-        var filterQuery;
+        var filter_query_period = -1;
+        var filter_query_rank = new Array(6);
+        var filter_query_app = new Array(5);
+        var filter_query_device = new Array(5);
+        var filter_query_sdk = new Array(5);
+        var filter_query_country = new Array(5);
 
-        $scope.set_filter = function (category, value) {
+
+        //init
+        filter_query_rank[5] = 0;
+        for(var i = 0; i < 5; i++) {
+            filter_query_rank[i] = 0; //rank는 -1빼고 json에 push
+            filter_query_app[i] = 0;
+            filter_query_device[i] = 0;
+            filter_query_sdk[i] = 0;
+            filter_query_country[i] = 0;
+        }
+        filter_query_rank[0] = -1;
+        filter_query_app[0] = -1;
+        filter_query_device[0] = -1;
+        filter_query_sdk[0] = -1;
+        filter_query_country[0] = -1;
+
+        $scope.set_filter = function (category, selecting, value) {
             if(category == 0) {
-                console.log('Period : ' + value);
+                filter_query_period = value;
             }
             else if(category == 1) {
-                console.log('Rank : ' + value);
+                if(filter_query_rank[selecting] == 0) {
+                    filter_query_rank[selecting] = value;
+                    filter_query_rank[0] = 0;
+                }
+                else
+                    filter_query_rank[selecting] = 0;
+
+                if(selecting == 0) {
+                    filter_query_rank[0] = -1;
+                    filter_query_rank[1] = 0;
+                    filter_query_rank[2] = 0;
+                    filter_query_rank[3] = 0;
+                    filter_query_rank[4] = 0;
+                    filter_query_rank[5] = 0;
+                }
+
             }
             else if(category == 2) {
-                console.log('Appversion : ' + value);
+                if(filter_query_app[selecting] == 0) {
+                    filter_query_app[selecting] = value;
+                    filter_query_app[0] = 0;
+                }
+                else
+                    filter_query_app[selecting] = 0;
+
+                if(selecting == 0) {
+                    filter_query_app[0] = -1;
+                    filter_query_app[1] = 0;
+                    filter_query_app[2] = 0;
+                    filter_query_app[3] = 0;
+                    filter_query_app[4] = 0;
+                }
+
             }
             else if(category == 3) {
-                console.log('Device : ' + value);
+                if(filter_query_device[selecting] == 0) {
+                    filter_query_device[selecting] = value;
+                    filter_query_device[0] = 0;
+                }
+                else
+                    filter_query_device[selecting] = 0;
+
+                if(selecting == 0) {
+                    filter_query_device[0] = -1;
+                    filter_query_device[1] = 0;
+                    filter_query_device[2] = 0;
+                    filter_query_device[3] = 0;
+                    filter_query_device[4] = 0;
+                }
             }
             else if(category == 4) {
-                console.log('SDK Level : ' + value);
+                if(filter_query_sdk[selecting] == 0) {
+                    filter_query_sdk[selecting] = value;
+                    filter_query_sdk[0] = 0;
+                }
+                else
+                    filter_query_sdk[selecting] = 0;
+
+                if(selecting == 0) {
+                    filter_query_sdk[0] = -1;
+                    filter_query_sdk[1] = 0;
+                    filter_query_sdk[2] = 0;
+                    filter_query_sdk[3] = 0;
+                    filter_query_sdk[4] = 0;
+                }
             }
             else if(category == 5) {
-                console.log('Coountry : ' + value);
+                if(filter_query_country[selecting] == 0) {
+                    filter_query_country[selecting] = value;
+                    filter_query_country[0] = 0;
+                }
+                else
+                    filter_query_country[selecting] = 0;
+
+                if(selecting == 0) {
+                    filter_query_country[0] = -1;
+                    filter_query_country[1] = 0;
+                    filter_query_country[2] = 0;
+                    filter_query_country[3] = 0;
+                    filter_query_country[4] = 0;
+                }
             }
+
+            //var json_filter = [];
+            var json_filter = [
+                { Rank : [] },
+                { Appver : [] },
+                { Device : [] },
+                { SDK : [] },
+                { Country : [] }
+            ];
+
+            json_filter.push({ period : filter_query_period });
+
+            if(filter_query_rank[0] == -1) {
+                json_filter[0].Rank.push(-1);
+            }
+            else {
+                for(var i = 1; i < 6; i++) {
+                    if(filter_query_rank[i] != 0) {
+                        json_filter[0].Rank.push(filter_query_rank[i] - 1);
+                    }
+                }
+            }
+
+            if(filter_query_app[0] == -1) {
+                json_filter[1].Appver.push(-1);
+            }
+            else {
+                for(var i = 1; i < 5; i++) {
+                    if(filter_query_app[i] != 0) {
+                        json_filter[1].Appver.push(filter_query_app[i]);
+                    }
+                }
+            }
+
+            if(filter_query_device[0] == -1) {
+                json_filter[2].Device.push(-1);
+            }
+            else {
+                for(var i = 1; i < 5; i++) {
+                    if(filter_query_device[i] != 0) {
+                        json_filter[2].Device.push(filter_query_device[i]);
+                    }
+                }
+            }
+
+            if(filter_query_sdk[0] == -1) {
+                json_filter[3].SDK.push(-1);
+            }
+            else {
+                for(var i = 1; i < 5; i++) {
+                    if(filter_query_sdk[i] != 0) {
+                        json_filter[3].SDK.push(filter_query_sdk[i]);
+                    }
+                }
+            }
+
+            if(filter_query_country[0] == -1) {
+                json_filter[4].Country.push(-1);
+            }
+            else {
+                for(var i = 1; i < 5; i++) {
+                    if(filter_query_country[i] != 0) {
+                        json_filter[4].Country.push(filter_query_country[i]);
+                    }
+                }
+            }
+
+
+            console.log('json_filter : ' + JSON.stringify(json_filter));
+
+
+            //$http({
+            //    method: 'POST',
+            //    data: JSON.stringify(json_filter),
+            //    url: 'https://honeyqa.io:8080/project/3/errors_filtered',
+            //    headers: {'Content-Type': 'application/json'}
+            //}).then(function successCallback(response) {
+            //    var data = JSON.parse(JSON.stringify(response.data));
+            //    console.log('data : ' + JSON.stringify(data));
+            //
+            //}, function errorCallback(response) {
+            //    console.log('error : ' + response);
+            //});
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: 'https://honeyqa.io:8080/project/3/errors_filtered',
+            //    data : json_filter,
+            //    datatype: "JSON",
+            //    contentType: "application/json; charset=utf-8",
+            //    error: function(returndata) {
+            //        console.log('error' + returndata);
+            //    },
+            //    success: function (returndata) {
+            //        console.log('success' + returndata);
+            //    }
+            //});
+
         }
-
-
-
-        $scope.filter_toggle_all = function() {
-            return 'btn btn-danger';
-        }
-
-
 
     }, function errorCallback(response) {
         console.log('error : ' + response);
@@ -573,10 +717,10 @@ function errors_filter_list($scope, $http) {
 
 
 
-function insight_recommend_error_list($scope, $http, $location) {
+function errors_recommend_error_list($scope, $http, $location) {
     $http({
         method: 'GET',
-        url: 'https://honeyqa.io:8080/project/547/errors'
+        url: 'https://honeyqa.io:8080/project/720/errors'
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
@@ -631,6 +775,10 @@ function insight_recommend_error_list($scope, $http, $location) {
     }
 }
 
+
+angular
+    .module('honeyqa')
+    .controller('error_detail_load', error_detail_load)
 
 function error_detail_load($scope, $http, $routeParams) {
     var errorid = $routeParams.error_id;
@@ -772,79 +920,235 @@ function error_detail_load($scope, $http, $routeParams) {
 
 
 
+angular
+    .module('honeyqa')
+    .controller('insight_rank_rating', insight_rank_rating)
 
+function insight_rank_rating($scope, $http) {
 
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/60/rank_rate'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
 
+        //console.log('Unhandle : ' + data[0].count);
+        //console.log('Native : ' + data[1].count);
+        //console.log('Critical : ' + data[2].count);
+        //console.log('Major : ' + data[3].count);
+        //console.log('Minor : ' + data[4].count);
 
-function insight_error_list($scope) {
-    var table = $('#table-example').dataTable({
-        'info': false,
-        'sDom': 'lTfr<"clearfix">tip',
-        'oTableTools': {
-            'aButtons': [
-                {
-                    'sExtends':    'collection',
-                    'sButtonText': '<i class="fa fa-cloud-download"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>',
-                    'aButtons':    [ 'csv', 'xls', 'pdf', 'copy', 'print' ]
-                }
-            ]
+        var value_array = new Array(5);
+        for(var i = 0; i < 5; i++) {
+            value_array[i] = 0;
         }
-    });
 
-    var tt = new $.fn.dataTable.TableTools( table );
-    $( tt.fnContainer() ).insertBefore('div.dataTables_wrapper');
-}
+        for(var i = 0; i < data.length; i++) {
+            value_array[data[i].rank] = data[i].count;
+        }
 
 
-function appver_session_graph($scope) {
-    graphArea2 = Morris.Area({
-        element: 'hero-area-1',
-        data: [
-            {period: '2010 Q1', iphone: 2666, ipad: null, itouch: 2647},
-            {period: '2010 Q2', iphone: 2778, ipad: 2294, itouch: 2441},
-            {period: '2010 Q3', iphone: 4912, ipad: 1969, itouch: 2501},
-            {period: '2010 Q4', iphone: 3767, ipad: 3597, itouch: 5689},
-            {period: '2011 Q1', iphone: 6810, ipad: 1914, itouch: 2293},
-            {period: '2011 Q2', iphone: 5670, ipad: 4293, itouch: 1881},
-            {period: '2011 Q3', iphone: 4820, ipad: 3795, itouch: 1588},
-            {period: '2011 Q4', iphone: 15073, ipad: 5967, itouch: 5175},
-            {period: '2012 Q1', iphone: 10687, ipad: 4460, itouch: 2028},
-            {period: '2012 Q2', iphone: 8432, ipad: 5713, itouch: 1791}
-        ],
-        lineColors: ['#0288d1', '#607d8b', '#689f38', '#8e44ad', '#c0392b', '#f39c12'],
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
-        pointSize: 2,
-        hideHover: 'auto',
-        resize: true
+        graphDonut = Morris.Donut({
+            element: 'insight_rank_rate',
+            data: [
+                {label: 'Unhandled', value: value_array[0] },
+                {label: 'Native', value: value_array[1] },
+                {label: 'Critical', value: value_array[2] },
+                {label: 'Major', value: value_array[3] },
+                {label: 'Minor', value: value_array[4] }
+            ],
+            colors: ['#8bc34a', '#ffc107', '#e84e40', '#03a9f4', '#9c27b0', '#90a4ae'],
+            formatter: function (y) { return y + "%" },
+            resize: true
+        });
+
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
     });
 }
 
-function appver_error_graph($scope) {
-    graphArea2 = Morris.Area({
-        element: 'hero-area-2',
-        data: [
-            {period: '2010 Q1', iphone: 2666, ipad: null, itouch: 2647},
-            {period: '2010 Q2', iphone: 2778, ipad: 2294, itouch: 2441},
-            {period: '2010 Q3', iphone: 4912, ipad: 1969, itouch: 2501},
-            {period: '2010 Q4', iphone: 3767, ipad: 3597, itouch: 5689},
-            {period: '2011 Q1', iphone: 6810, ipad: 1914, itouch: 2293},
-            {period: '2011 Q2', iphone: 5670, ipad: 4293, itouch: 1881},
-            {period: '2011 Q3', iphone: 4820, ipad: 3795, itouch: 1588},
-            {period: '2011 Q4', iphone: 15073, ipad: 5967, itouch: 5175},
-            {period: '2012 Q1', iphone: 10687, ipad: 4460, itouch: 2028},
-            {period: '2012 Q2', iphone: 8432, ipad: 5713, itouch: 1791}
-        ],
-        lineColors: ['#0288d1', '#607d8b', '#689f38', '#8e44ad', '#c0392b', '#f39c12'],
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
-        pointSize: 2,
-        hideHover: 'auto',
-        resize: true
+
+angular
+    .module('honeyqa')
+    .controller('statistic_appver_most_session', statistic_appver_most_session)
+    .controller('statistic_appver_most_error', statistic_appver_most_error)
+
+
+function statistic_appver_most_session($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/session_appversion'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        var av_most_session = data.values;
+        var keys_name_array = new Array(data.keys.length);
+
+        for(var i = 0; i < data.keys.length; i++) {
+            keys_name_array[i] = data.keys[i];
+        }
+
+        graphArea2 = Morris.Area({
+            element: 'statistic_appver_most_session_area',
+            data : av_most_session,
+            lineColors: ['#0288d1', '#607d8b', '#689f38', '#8e44ad', '#c0392b', '#f39c12'],
+            xkey: 'datetime',
+            ykeys: keys_name_array,
+            labels: keys_name_array,
+            pointSize: 2,
+            hideHover: 'auto',
+            resize: true
+        });
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
     });
 }
+
+function statistic_appver_most_error($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/error_appversion'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        var av_most_session = data.values;
+        var keys_name_array = new Array(data.keys.length);
+
+        for(var i = 0; i < data.keys.length; i++) {
+            keys_name_array[i] = data.keys[i];
+        }
+
+        graphArea2 = Morris.Area({
+            element: 'statistic_appver_most_error_area',
+            data : av_most_session,
+            lineColors: ['#0288d1', '#607d8b', '#689f38', '#8e44ad', '#c0392b', '#f39c12'],
+            xkey: 'datetime',
+            ykeys: keys_name_array,
+            labels: keys_name_array,
+            pointSize: 2,
+            hideHover: 'auto',
+            resize: true
+        });
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+
+angular
+    .module('honeyqa')
+    .controller('statistic_device_error_rating', statistic_device_error_rating)
+    .controller('statistic_device_circle_repeat', statistic_device_circle_repeat)
+    .controller('statistic_device_circle', statistic_device_circle)
+
+
+function statistic_device_error_rating($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/device'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+
+        //console.log('data : ' + data[0].device);
+        //console.log('data : ' + data[0].count);
+
+        graphBar = Morris.Bar({
+            element: 'statistic_device_error_rate',
+            data: data,
+            barColors: ['#8bc34a', '#e84e40', '#f39c12', '#3fcfbb', '#626f70', '#8f44ad'],
+            xkey: 'device',
+            ykeys: ['count'],
+            labels: ['Count'],
+            barRatio: 0.4,
+            xLabelAngle: 35,
+            hideHover: 'auto',
+            resize: true
+        });
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+function statistic_device_circle_repeat($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/device'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        $scope.circle = data;
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
+
+function statistic_device_circle($scope, $http) {
+
+        $(".knob").knob({
+            readOnly : true,
+            change : function (value) {
+                console.log("change : " + value);
+            },
+            release : function (value) {
+                //console.log(this.$.attr('value'));
+                console.log("release : " + value);
+            },
+            cancel : function () {
+                console.log("cancel : ", this);
+            },
+            draw : function () {
+
+                // "tron" case
+                if(this.$.data('skin') == 'tron') {
+
+                    var a = this.angle(this.cv)  // Angle
+                        , sa = this.startAngle		  // Previous start angle
+                        , sat = this.startAngle		 // Start angle
+                        , ea							// Previous end angle
+                        , eat = sat + a				 // End angle
+                        , r = 1;
+
+                    this.g.lineWidth = this.lineWidth;
+
+                    //this.o.cursor
+                    //&& (sat = eat - 0.3)
+                    //&& (eat = eat + 0.3);
+
+                    //if (this.o.displayPrevious) {
+                    //    ea = this.startAngle + this.angle(this.v);
+                    //    this.o.cursor
+                    //    && (sa = ea - 0.3)
+                    //    && (ea = ea + 0.3);
+                    //    this.g.beginPath();
+                    //    this.g.strokeStyle = this.pColor;
+                    //    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                    //    this.g.stroke();
+                    //}
+
+                    this.g.beginPath();
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                    this.g.stroke();
+                    return false;
+                }
+            }
+        });
+
+}
+
+
 
 function dashboardFlotCtrl($scope) {
     var data1 = [
@@ -956,27 +1260,7 @@ function device_range() {
     $('.slider-range').val([10, 15], true);
 }
 
-function device_rate_bar() {
-    graphBar = Morris.Bar({
-        element: 'device-bar',
-        data: [
-            {device: 'iPhone', geekbench: 136},
-            {device: 'iPhone 3G', geekbench: 137},
-            {device: 'iPhone 3GS', geekbench: 275},
-            {device: 'iPhone 4', geekbench: 380},
-            {device: 'iPhone 4S', geekbench: 655},
-            {device: 'iPhone 5', geekbench: 1571}
-        ],
-        barColors: ['#8bc34a', '#e84e40', '#f39c12', '#3fcfbb', '#626f70', '#8f44ad'],
-        xkey: 'device',
-        ykeys: ['geekbench'],
-        labels: ['Geekbench'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        resize: true
-    });
-}
+
 
 function device_morris_circle() {
     $(".knob").knob({
@@ -1170,38 +1454,3 @@ function proguardList($scope, $http) {
 
 function dsymList($scope, $http) {
 }
-
-//angular
-//    .module('honeyqa')
-//    .controller('mainCtrl', mainCtrl)
-//    .controller('emailCtrl', emailCtrl)
-//
-//    .controller('project_list_profile', project_list_profile)
-//    .controller('project_list_load_project', project_list_load_project)
-//
-//    .controller('overview_weekly_error', overview_weekly_error)
-//    .controller('overview_most_session_app_ver', overview_most_session_app_ver)
-//    .controller('overview_most_error_app_ver', overview_most_error_app_ver)
-//    .controller('overview_most_error_device', overview_most_error_device)
-//    .controller('overview_most_error_sdk', overview_most_error_sdk)
-//    .controller('overview_most_error_country', overview_most_error_country)
-//    .controller('overview_most_error_class', overview_most_error_class)
-//
-//    .controller('insight_filter_list', insight_filter_list)
-//    .controller('insight_recommend_error_list', insight_recommend_error_list)
-//    .controller('error_detail_load', error_detail_load)
-//
-//    .controller('dashboardFlotCtrl', dashboardFlotCtrl)
-//    .controller('insight_donut', insight_donut)
-//    .controller('insight_error_list', insight_error_list)
-//    .controller('appver_session_graph', appver_session_graph)
-//    .controller('appver_error_graph', appver_error_graph)
-//    .controller('device_range', device_range)
-//    .controller('device_rate_bar', device_rate_bar)
-//    .controller('device_morris_circle', device_morris_circle)
-//    .controller('sdk_flot_donut', sdk_flot_donut)
-//    .controller('sdk_flot_bar', sdk_flot_bar)
-//    .controller('country_map', country_map)
-//    .controller('class_flot_donut', class_flot_donut)
-//    .controller('proguardList', proguardList)
-//    .controller('dsymList', dsymList)
