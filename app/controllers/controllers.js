@@ -1180,16 +1180,6 @@ function statistic_sdk_error_counting($scope, $http) {
     }).then(function successCallback(response) {
         var data = JSON.parse(JSON.stringify(response.data));
 
-        console.log(data);
-
-        console.log('length : ' + data.length);
-
-
-        console.log('data[0].osversion : ' + data[0].osversion);
-
-        //Rank [ 0: Unhandle, 1: Native, 2: Critical, 3: Major, 4: Minor ]
-
-
         var porting = [];
         for(var i = 0; i < data.length; i++) {
             var temp_osversion = data[i].osversion;
@@ -1245,6 +1235,70 @@ function statistic_sdk_error_counting($scope, $http) {
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
+}
+
+angular
+    .module('honeyqa')
+    .controller('statistic_country_error_rating', statistic_country_error_rating)
+
+
+function statistic_country_error_rating($scope, $http) {
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/country'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        var contry_json = [];
+        for(var i = 0; i < data.length; i++) {
+            contry_json[data[i].country] = data[i].count;
+        }
+
+        $scope.clist = data;
+
+        $('#statistic_country_error_rate').vectorMap({
+            map: 'world_merc_en',
+            backgroundColor: '#ffffff',
+            zoomOnScroll: false,
+            zoomButtons: false,
+            regionStyle: {
+                initial: {
+                    fill: '#e1e1e1',
+                    stroke: 'none',
+                    "stroke-width": 0,
+                    "stroke-opacity": 1
+                },
+                hover: {
+                    "fill-opacity": 0.8
+                },
+                selected: {
+                    fill: '#8dc859'
+                },
+                selectedHover: {
+                }
+            },
+            markerStyle: {
+                initial: {
+                    fill: '#e84e40',
+                    stroke: '#e84e40'
+                }
+            },
+            series: {
+                regions: [{
+                    values: contry_json,
+                    scale: ['#FF7E7E', '#ED0000'],
+                    normalizeFunction: 'polynomial'
+                }]
+            }
+        });
+
+
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+
 }
 
 
@@ -1496,24 +1550,25 @@ function country_map() {
                 stroke: '#e84e40'
             }
         },
-        markers: [
-            {latLng: [38.35, -121.92], name: 'Los Angeles - 23'},
-            {latLng: [39.36, -73.12], name: 'New York - 84'},
-            {latLng: [50.49, -0.23], name: 'London - 43'},
-            {latLng: [36.29, 138.54], name: 'Tokyo - 33'},
-            {latLng: [37.02, 114.13], name: 'Beijing - 91'},
-            {latLng: [-32.59, 150.21], name: 'Sydney - 22'},
-        ],
+        //markers: [
+        //    {latLng: [38.35, -121.92], name: 'Los Angeles - 23'},
+        //    {latLng: [39.36, -73.12], name: 'New York - 84'},
+        //    {latLng: [50.49, -0.23], name: 'London - 43'},
+        //    {latLng: [36.29, 138.54], name: 'Tokyo - 33'},
+        //    {latLng: [37.02, 114.13], name: 'Beijing - 91'},
+        //    {latLng: [-32.59, 150.21], name: 'Sydney - 22'},
+        //],
         series: {
             regions: [{
                 values: gdpData,
                 scale: ['#6fc4fe', '#2980b9'],
                 normalizeFunction: 'polynomial'
             }]
-        },
-        onRegionLabelShow: function(e, el, code){
-            el.html(el.html()+' ('+gdpData[code]+')');
         }
+        //,
+        //onRegionLabelShow: function(e, el, code){
+        //    el.html(el.html()+' ('+gdpData[code]+')');
+        //}
     });
 }
 
