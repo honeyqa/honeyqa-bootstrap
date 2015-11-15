@@ -1298,9 +1298,63 @@ function statistic_country_error_rating($scope, $http) {
     }, function errorCallback(response) {
         console.log('error : ' + response);
     });
-
 }
 
+angular
+    .module('honeyqa')
+    .controller('statistic_class_error_rating', statistic_class_error_rating)
+
+function statistic_class_error_rating($scope, $http) {
+
+    $http({
+        method: 'GET',
+        url: 'https://honeyqa.io:8080/statistics/720/lastactivity'
+    }).then(function successCallback(response) {
+        var data = JSON.parse(JSON.stringify(response.data));
+
+        var porting = [];
+
+        for(var i = 0; i < data.length / 2; i++) {
+            porting.push({
+                label : data[i].osversion,
+                data : data[i].count
+            })
+        }
+
+        var others_count = 0;
+        for(var i = data.length / 2; i < data.length; i++) {
+            others_count += data[i].count;
+        }
+        porting.push({
+            label : 'others',
+            data : others_count
+        })
+
+        if ($('#statistic_class_error_rate').length) {
+
+            var dataDonut = porting;
+
+            $.plot('#statistic_class_error_rate', dataDonut, {
+                series: {
+                    pie: {
+                        show: true,
+                        innerRadius: 0.5,
+                        label: {
+                            show: true,
+                        }
+                    }
+                },
+                colors: ['#e84e40', '#ffc107', '#8bc34a', '#03a9f4', '#9c27b0', '#90a4ae'],
+                legend: {
+                    show: false,
+                }
+            });
+        }
+
+    }, function errorCallback(response) {
+        console.log('error : ' + response);
+    });
+}
 
 
 function dashboardFlotCtrl($scope) {
