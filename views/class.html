@@ -59,8 +59,39 @@
         </header>
 
         <div class="main-box-body clearfix" ng-controller="statistic_class_error_rating">
-            <div id="statistic_class_error_rate"></div>
+            <div id="statistic_class_error_rate" style="height: 400px; padding: 0px; position: relative;"></div>
         </div>
     </div>
 </div>
 
+<div class="col-lg-12">
+    <div class="main-box clearfix">
+        <header class="main-box-header clearfix">
+            <h2>Error Counter By Activity</h2>
+        </header>
+
+        <div class="main-box-body clearfix">
+            <div class="table-responsive">
+                <table id="table-example" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Activity Name</th>
+                        <th>Error Count</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-controller="statistic_class_error_list">
+                    <tr ng-repeat="a in ac">
+                        <td>{{a.lastactivity}}</td>
+                        <td>{{a.count}}</td>
+                        <!--<td ng-class="setting_css(error.rank)" style="font-size: 0.9em; color: #ffffff; min-width: 70px;">{{error.rank}}</td>-->
+                        <!--<td style="text-align: right;">{{error.numofinstance}}</td>-->
+                        <!--<td><a ng-click="insight_error_click_route(error.id)">{{error.errorname}}</a></td>-->
+                        <!--<td ng-repeat="t in error.tags">{{t.tag}}</td>-->
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
